@@ -234,7 +234,7 @@ hr {
             <form><li><input class="searchbar" name="keyword"></li></form>
             <li><img src="/img/heart.png" height="38px"><br>찜한목록</li>
             <li><img src="/img/person.png" height="38px"><br>나의정보</li>
-            <li><img src="/img/cart.png" height="38px"><br>장바구니</li>
+            <li><a href="/cart"><img src="/img/cart.png" height="38px"><br>장바구니</a></li>
         </ul>
     <div>
 </div>

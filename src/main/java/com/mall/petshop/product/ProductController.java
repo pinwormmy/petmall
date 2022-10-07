@@ -120,4 +120,10 @@ public class ProductController {
     public void updateReviewCount(int productNum) throws Exception {
         productService.updateReviewCount(productNum);
     }
+
+    @RequestMapping(value = "/cart")
+    public String cart() throws Exception {
+        log.info("장바구니 페이지");
+        return "cart";
+    }
 }
