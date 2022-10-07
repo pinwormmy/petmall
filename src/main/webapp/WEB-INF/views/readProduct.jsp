@@ -160,22 +160,6 @@ img {
 						<div id="reviews" class="tab-pane fade">
 							<div class="product-reviews">
                                 <ul class="media-list reviews-list m-bot-50 clearlist" style="flex-direction: column;">
-                                    <!-- Review Item start-->
-                                    <li class="media">
-                                        <div class="media-body" style="text-align: left;">
-                                            <div class="review-info">
-                                                <h4 class="review-author">
-                                                    <a href="#!">${review.id}</a>
-                                                </h4>
-                                                <time datetime="2013-04-06T13:53">${review.regDate}</time>
-                                                <a class="review-button" href="#!"><i class="tf-ion-chatbubbles"></i>Reply</a>
-                                            </div>
-                                            <p>
-                                                ${review.content}
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <!-- End Review Item -->
                                     <div id="reviews-list"></div>
                                     <div id="reviews-page"></div>
                                 </ul>
@@ -197,7 +181,7 @@ img {
 
 <script>
 
-alert("js test 18");
+alert("js test 19");
 
 let likeHeart = document.getElementById("likeHeart");
 let loginId;
@@ -302,7 +286,7 @@ function addReview() {
         updateReviewCount(${product.productNum});
         showReviewList();
     });
-    reviewContent = "";
+    reviewContent.value = "";
 }
 
 function showReviewList(reviewPage) {
@@ -367,9 +351,9 @@ function showReviewWithHtml(ReviewDTOList) {
 function reviewHtmlWithString(reviewListHtml, ReviewDTOList) {
     console.log("댓글 코맨트 소스 반복문 준비 확인");
     for(let review of ReviewDTOList) {
-        reviewListHtml += "<div class='media'><div class='media-body'><div class='well'><div class='media-heading'>";
-        reviewListHtml += review.regDate + "</small></div><p>" + review.content + "</p>";
-        reviewListHtml = displayDeleteButton(reviewListHtml, review) + "</div></div></div>";
+        reviewListHtml += "<div class='media'><div class='media-body'><div class='well'><div class='media-heading'><b>";
+        reviewListHtml += review.id +" </b><small> " + review.regDate + "</small></div><p>" + review.content;
+        reviewListHtml = displayDeleteButton(reviewListHtml, review) + "</p></div></div></div>";
     }
     return reviewListHtml;
 }
