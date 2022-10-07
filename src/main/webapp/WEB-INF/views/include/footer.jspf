@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<html>
+
+<footer class="footer section text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<p class="company-info" align="left">
+                    캣캣쇼핑 주식회사<br>
+                    대표이사 : 김미돌  |  주소 : 서울특별시 송파구 123로 12345<br>
+                    사업자등록번호 : 123-12-12345(캣캣쇼핑(주) e커머스사업부)<br>
+                    통신판매업 신고 : 서울송파 제0000호사업자 정보 확인 | 호스팅 서비스사업자 : 캣캣쇼핑(주) e커머스사업부</p>
+                <p class="copyright-text">Copyright 2022. <a href="https://github.com/pinwormmy" target="_blank">Pinwormmy</a> All right reserved.</p>
+				<p class="copyright-text">Copyright &copy;2021, Template Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<!--
+Essential Scripts
+=====================================-->
+
+<!-- Main jQuery -->
+<script src="plugins/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.1 -->
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- Bootstrap Touchpin -->
+<script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+<!-- Instagram Feed Js -->
+<script src="plugins/instafeed/instafeed.min.js"></script>
+<!-- Video Lightbox Plugin -->
+<script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+<!-- Count Down Js -->
+<script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+
+<!-- slick Carousel -->
+<script src="plugins/slick/slick.min.js"></script>
+<script src="plugins/slick/slick-animation.min.js"></script>
+
+<!-- Google Mapl -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+<script type="text/javascript" src="plugins/google-map/gmap.js"></script>
+
+<!-- Main Js File -->
+<script src="js/script.js"></script>
+
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>

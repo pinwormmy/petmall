@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mall.petshop.mapper.MemberMapper">
+
+	<select id="submitLogin" resultType="com.mall.petshop.member.MemberDTO">
+		SELECT *
+			FROM MEMBER
+			WHERE ID=#{id} and PW=#{pw}
+	</select>
+
+	<insert id="submitSignUp">
+		INSERT INTO MEMBER(id, pw, name, phone, address, email)
+			VALUES(#{id}, #{pw}, #{name}, #{phone}, #{address}, #{email})
+	</insert>
+
+</mapper>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mall.petshop.mapper.ProductMapper">
+
+	<resultMap type="com.mall.petshop.product.LikeItDTO" id="likeIt">
+		<result column="ID" property="id" />
+		<result column="PRODUCT_NUM" property="productNum" />
+	</resultMap>
+
+	<resultMap type="com.mall.petshop.product.ProductDTO" id="productDTO">
+		<result column="PRODUCT_NUM" property="productNum" />
+		<result column="SEARCH_TAG" property="searchTag" />
+		<result column="NAME" property="name" />
+		<result column="PRICE" property="price" />
+		<result column="THUMBNAIL" property="thumbnail" />
+		<result column="FREE_SHIPPING" property="freeShipping" />
+		<result column="ON_DISCOUNT" property="onDiscount" />
+		<result column="REG_DATE" property="regDate" />
+		<result column="CONTENT" property="content" />
+		<collection property="likeItDTO" resultMap="likeIt" />
+	</resultMap>
+
+	<select id="searchProduct">
+		SELECT *
+			FROM MEMBER
+			WHERE ID=#{id} and PW=#{pw}
+	</select>
+
+	<select id="showProductList" resultType="com.mall.petshop.product.ProductDTO">
+		SELECT * FROM
+			(SELECT rownum r, C.* FROM
+				(SELECT PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, THUMBNAIL, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT
+					FROM PRODUCT
+					WHERE <include refid="searchKeyword" />
+						<include refid="freeShipping" /> <include refid="onDiscount" />
+					<include refid="sortOption" />) C)
+			WHERE r BETWEEN #{postBeginPoint} AND #{postEndPoint}
+	</select>
+
+	<sql id="searchKeyword">
+		(SEARCH_TAG like '%'||#{keyword}||'%' OR
+		NAME like '%'||#{keyword}||'%' OR
+		CONTENT like '%'||#{keyword}||'%')
+	</sql>
+
+	<sql id="sortOption">
+		<if test="sortType == 'recent'">
+			order by PRODUCT_NUM desc
+		</if>
+		<if test="sortType == 'lowPrice'">
+			order by PRICE ASC
+		</if>
+		<if test="sortType == 'highPrice'">
+			order by PRICE DESC
+		</if>
+		<if test="sortType == 'bestLike'">
+			order by PRODUCT_NUM desc
+		</if>
+		<if test="sortType == 'bestReview'">
+			order by PRODUCT_NUM desc
+		</if>
+	</sql>
+
+	<sql id="freeShipping">
+		<if test="freeShipping == 1">
+			AND FREE_SHIPPING=1
+		</if>
+	</sql>
+
+	<sql id="onDiscount">
+		<if test="onDiscount == 1">
+			AND ON_DISCOUNT=1
+		</if>
+	</sql>
+
+	<select id="countTotalPost" resultType="int">
+		SELECT COUNT(*) from PRODUCT
+			WHERE <include refid="searchKeyword" />
+	</select>
+
+	<select id="readProduct" resultType="com.mall.petshop.product.ProductDTO">
+		SELECT * FROM PRODUCT
+			WHERE PRODUCT_NUM=#{productNum}
+	</select>
+
+	<insert id="addProduct">
+		INSERT INTO PRODUCT(PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT, THUMBNAIL)
+			VALUES(PRODUCT_SEQ.NEXTVAL, #{searchTag}, #{name}, #{price}, #{freeShipping}, #{onDiscount}, sysdate, #{content}, #{thumbnail})
+	</insert>
+
+	<delete id="deleteProduct">
+		DELETE PRODUCT
+			WHERE PRODUCT_NUM=#{productNum}
+	</delete>
+
+	<select id="checkLike" resultType="int">
+		SELECT COUNT(*)
+			FROM LIKEIT
+			WHERE ID=#{id} AND PRODUCT_NUM=#{productNum}
+	</select>
+
+	<select id="loadLikeList" resultType="com.mall.petshop.product.LikeItDTO">
+		SELECT PRODUCT_NUM FROM LIKEIT
+			WHERE ID=#{id}
+	</select>
+
+	<insert id="switchToLike">
+		INSERT INTO LIKEIT
+			VALUES(#{id}, #{productNum})
+	</insert>
+
+	<delete id="switchToUnlike">
+		DELETE LIKEIT
+			WHERE PRODUCT_NUM=#{productNum}
+			AND ID=#{id}
+	</delete>
+
+	<select id="countTotalReview" resultType="int">
+		SELECT count(*) from REVIEW
+		WHERE PRODUCT_NUM=#{productNum}
+	</select>
+
+	<insert id="addReview">
+		INSERT INTO REVIEW(PRODUCT_NUM, REVIEW_NUM, ID, REG_DATE, CONTENT)
+			VALUES(#{productNum}, REVIEW_NUM_SEQ.nextval, #{id}, SYSDATE, #{content})
+	</insert>
+
+	<select id="showReviewList" resultType="com.mall.petshop.product.ReviewDTO">
+		SELECT * FROM
+			(SELECT ROWNUM R, A.* FROM
+				(SELECT A.PRODUCT_NUM, A.review_NUM, A.ID, A.REG_DATE, A.CONTENT
+					FROM REVIEW A
+					WHERE A.PRODUCT_NUM=#{productNum}
+					ORDER BY A.REVIEW_NUM DESC) A)
+			WHERE R BETWEEN #{postBeginPoint} AND #{postEndPoint}
+			ORDER BY REVIEW_NUM
+	</select>
+
+	<delete id="deleteReview">
+		DELETE from REVIEW
+			WHERE REVIEW_NUM=#{reviewNum}
+	</delete>
+
+	<update id="updateReviewCount">
+		UPDATE PRODUCT
+			SET REVIEW_COUNT=
+				(SELECT COUNT(*) FROM REVIEW
+					WHERE PRODUCT_NUM=#{productNum})
+				WHERE PRODUCT_NUM=#{productNum}
+	</update>
+
+</mapper>
