@@ -76,6 +76,19 @@ img {
 .button-set button{
     margin: 5px;
 }
+#content {
+    border: solid 1px Turquoise;
+    width: 90%;
+}
+.write-review-button {
+    margin-bottom: 20px;
+    background-color: Turquoise;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
+    height: 38px;
+}
 </style>
 </head>
 <body>
@@ -165,9 +178,9 @@ img {
                                 </ul>
 							</div>
 							<div class="add-review">
-                                <h4>리뷰 작성하기</h4>
+                                <h5>리뷰 작성하기</h5>
                                 <input name="content" id="content">
-                                <button onclick="addReview();">리뷰쓰기</button>
+                                <button type="button" class="write-review-button" onclick="addReview();">리뷰쓰기</button>
 							</div>
 						</div>
 					</div>
@@ -267,8 +280,9 @@ let reviewContent = document.getElementById("content");
 showReviewList();
 
 function addReview() {
+    if(${member == null}) { location.href='/login' };
     console.log("리뷰입력 값 : ", reviewContent.value);
-    if(reviewContent == "") {
+    if(reviewContent.value == "") {
         alert("리뷰 내용을 작성해주세요~");
         return false;
     }
