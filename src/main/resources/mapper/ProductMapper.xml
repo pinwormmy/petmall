@@ -56,11 +56,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="sortType == 'highPrice'">
 			order by PRICE DESC
 		</if>
-		<if test="sortType == 'bestLike'">
-			order by PRODUCT_NUM desc
-		</if>
 		<if test="sortType == 'bestReview'">
-			order by PRODUCT_NUM desc
+			order by REVIEW_COUNT desc
 		</if>
 	</sql>
 

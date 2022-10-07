@@ -225,11 +225,8 @@
                         <li><c:if test="${page.sortType == 'highPrice'}">✔️</c:if>
                         <a href="/?sortType=highPrice&keyword=${page.keyword}">높은 가격순</a>
                         </li>
-                        <li><c:if test="${page.sortType == 'bestLike'}">✔️</c:if>
-                        <a href="/?sortType=recent&keyword=${page.keyword}">찜 많은 순</a>
-                        </li>
                         <li><c:if test="${page.sortType == 'bestReview'}">✔️</c:if>
-                        <a href="/?sortType=recent&keyword=${page.keyword}">리뷰많은 순</a>
+                        <a href="/?sortType=bestReview&keyword=${page.keyword}">리뷰많은 순</a>
                         </li>
                     </ul>
 			    </div>
