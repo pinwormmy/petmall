@@ -164,7 +164,7 @@ img {
 				<div class="tabCommon mt-20">
 					<ul class="nav nav-tabs">
 						<li class="active"><a data-toggle="tab" href="#details" aria-expanded="true">상세정보</a></li>
-						<li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false">리뷰(3)</a></li>
+						<li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false">리뷰(${product.reviewCount})</a></li>
 					</ul>
 					<div class="tab-content patternbg">
 						<div id="details" class="tab-pane fade active in" style="text-align: center;">
@@ -194,7 +194,7 @@ img {
 
 <script>
 
-alert("js test 19");
+alert("js test 20");
 
 let likeHeart = document.getElementById("likeHeart");
 let loginId;

@@ -16,6 +16,7 @@ public class ProductDTO {
     private int freeShipping;
     private int onDiscount;
     private Date regDate;
+    private int reviewCount;
 
     private LikeItDTO likeItDTO;
 }

@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="showProductList" resultType="com.mall.petshop.product.ProductDTO">
 		SELECT * FROM
 			(SELECT rownum r, C.* FROM
-				(SELECT PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, THUMBNAIL, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT
+				(SELECT PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, THUMBNAIL, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT, REVIEW_COUNT
 					FROM PRODUCT
 					WHERE <include refid="searchKeyword" />
 						<include refid="freeShipping" /> <include refid="onDiscount" />
