@@ -1,10 +1,7 @@
 package com.mall.petshop.mapper;
 
 import com.mall.petshop.member.MemberDTO;
-import com.mall.petshop.product.LikeItDTO;
-import com.mall.petshop.product.ProductDTO;
-import com.mall.petshop.product.ProductOrderDTO;
-import com.mall.petshop.product.ReviewDTO;
+import com.mall.petshop.product.*;
 import com.mall.petshop.util.PageDTO;
 import org.apache.ibatis.annotations.Param;
 
@@ -45,4 +42,16 @@ public interface ProductMapper {
     int countTotalReview(PageDTO page) throws Exception;
 
     void buyProduct(ProductOrderDTO order) throws Exception;
+
+    ProductOrderDTO readOrder(ProductOrderDTO order) throws Exception;
+
+    void addCart(CartDTO cart) throws Exception;
+
+    List<CartDTO> showCartList(String id) throws Exception;
+
+    void deleteCart(int cartNum) throws Exception;
+
+    List<LikeItDTO> showLikeList(String id) throws Exception;
+
+    void deleteLike(int productNum, String id) throws Exception;
 }

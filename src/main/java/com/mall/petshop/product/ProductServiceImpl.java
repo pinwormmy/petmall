@@ -1,6 +1,5 @@
 package com.mall.petshop.product;
 
-import com.mall.petshop.mapper.MemberMapper;
 import com.mall.petshop.mapper.ProductMapper;
 import com.mall.petshop.util.PageDTO;
 import com.mall.petshop.util.PageService;
@@ -118,5 +117,36 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void buyProduct(ProductOrderDTO order) throws Exception {
         productMapper.buyProduct(order);
+    }
+
+    @Override
+    public ProductOrderDTO readOrder(ProductOrderDTO order) throws Exception {
+        return productMapper.readOrder(order);
+    }
+
+    @Override
+    public void addCart(CartDTO cart) throws Exception {
+        productMapper.addCart(cart);
+    }
+
+    @Override
+    public List<CartDTO> showCartList(String id) throws Exception {
+        return productMapper.showCartList(id);
+    }
+
+    @Override
+    public void deleteCart(int cartNum) throws Exception {
+        productMapper.deleteCart(cartNum);
+    }
+
+    @Override
+    public List<LikeItDTO> showLikeList(String id) throws Exception {
+
+        return productMapper.showLikeList(id);
+    }
+
+    @Override
+    public void deleteLike(int productNum, String id) throws Exception {
+        productMapper.deleteLike(productNum, id);
     }
 }

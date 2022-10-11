@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,13 +24,13 @@
 				<div class="dashboard-wrapper user-dashboard" style="margin: 30px 0 30px 0;">
 					<div class="media">
 						<div class="media-body">
-							<h1 class="media-heading">환영합니다. midori님!</h1>
+							<h1 class="media-heading">환영합니다. ${member.id}님!</h1>
 							<hr>
 							<div class="member-info" style="font-size: 20px; line-height: 50px;">
-                                <span>고객명 : 김미돌</span><br>
-                                <span>연락처 : 123-1234-1234</span><br>
-                                <span>이메일 : midori@cat.com</span><br>
-                                <span>주소 : 서울시 냥냥구 123 야옹빌딩 1234-1234</span><br>
+                                <span>고객명 : ${member.name}</span><br>
+                                <span>연락처 : ${member.phone}</span><br>
+                                <span>이메일 : ${member.email}</span><br>
+                                <span>주소 : ${member.address}</span><br>
                                 <hr>
 							</div>
 						</div>
@@ -78,10 +76,17 @@
 									<tr>
 										<td><a href="#!">#252125</a></td>
 										<td>털 깎인 미도리가 찾는 푹신이불</td>
-										<td>Mar 25, 2016</td>
-										<td>2</td>
-										<td>$ 99.00</td>
+										<td>Oct 12, 2022</td>
+										<td>1</td>
+										<td>27300원</td>
 									</tr>
+									<tr>
+                                        <td><a href="#!">#21156</a></td>
+                                        <td>팩맨 개구리를 위한 사또밥</td>
+                                        <td>Oct 10, 2022</td>
+                                        <td>1</td>
+                                        <td>5500원</td>
+                                    </tr>
 								</tbody>
 							</table>
 						</div>

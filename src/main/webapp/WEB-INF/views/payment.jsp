@@ -65,14 +65,14 @@
 				            <table id="purchase-receipt" class="table">
 				                <thead>
 									<tr>
-					                    <th width="80px"><strong>주문번호:</strong></th>
-					                    <th>123</th>
+					                    <th width="80px"><strong>주문번호: #</strong></th>
+					                    <th>${order.orderNum}</th>
 				                  	</tr>
 				                </thead>
 				                <tbody>
 				                  	<tr>
 				                    	<td><strong>받는이:</strong></td>
-				                    	<td>김미돌</td>
+				                    	<td>${id}</td>
 				                  	</tr>
 				                  	<tr>
                                         <td><strong>연락처:</strong></td>
@@ -94,11 +94,11 @@
 				                  	</tr>
 				                  	<tr>
 				                    	<td><strong>결제금액</strong></td>
-				                    	<td>40,000원</td>
+				                    	<td>${totalPrice}원</td>
 				                    </tr>
 				                    <tr>
 				                      	<td></td>
-				                      	<td><button type="button" class="pay-button">결제하기</button></td>
+				                      	<td><button type="button" class="pay-button" onclick="fakeResult();">결제하기</button></td>
 				                    </tr>
 				                </tbody>
 				            </table>
@@ -139,6 +139,13 @@ Essential Scripts
 <script src="js/script.js"></script>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+
+function fakeResult() {
+    window.close();
+}
+
+</script>
 </body>
 </html>
 

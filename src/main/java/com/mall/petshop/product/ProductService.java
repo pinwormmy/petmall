@@ -37,4 +37,16 @@ public interface ProductService {
     void updateReviewCount(int postNum) throws Exception;
 
     void buyProduct(ProductOrderDTO order) throws Exception;
+
+    ProductOrderDTO readOrder(ProductOrderDTO order) throws Exception;
+
+    void addCart(CartDTO cart) throws Exception;
+
+    List<CartDTO> showCartList(String id) throws Exception;
+
+    void deleteCart(int cartNum) throws Exception;
+
+    List<LikeItDTO> showLikeList(String id) throws Exception;
+
+    void deleteLike(int productNum, String id) throws Exception;
 }

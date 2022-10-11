@@ -18,7 +18,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
@@ -231,9 +231,9 @@ hr {
         <ul>
             <li><a href="/"><img src="/img/logo.png" height="80px"></a></li>
             <form action="/"><li><input class="searchbar" name="keyword"></li></form>
-            <li><a href="/likeList"><img src="/img/heart.png" height="38px"><br>찜한목록</a></li>
-            <li><a href="/myPage"><img src="/img/person.png" height="38px"><br>나의정보</a></li>
-            <li><a href="/cart"><img src="/img/cart.png" height="38px"><br>장바구니</a></li>
+            <li><a href="javascript:goLikeIt();"><img src="/img/heart.png" height="38px"><br>찜한목록</a></li>
+            <li><a href="javascript:goMyPage()"><img src="/img/person.png" height="38px"><br>나의정보</a></li>
+            <li><a href="javascript:goCart();"><img src="/img/cart.png" height="38px"><br>장바구니</a></li>
         </ul>
     <div>
 </div>
@@ -259,9 +259,33 @@ hr {
 
 <script>
 
-function comingSoon() {
-    alert("업데이트 예정입니다.");
-}
+    function comingSoon() {
+        alert("업데이트 예정입니다.");
+    }
+
+    function goCart() {
+        if(${member == null}) {
+            alert("로그인이 필요합니다.");
+            return false;
+        }
+        location.href="/cart?id=${member.id}";
+    }
+
+    function goLikeIt() {
+        if(${member == null}) {
+            alert("로그인이 필요합니다.");
+            return false;
+        }
+        location.href="/likeList?id=${member.id}";
+    }
+
+    function goMyPage() {
+        if(${member == null}) {
+            alert("로그인이 필요합니다.");
+            return false;
+        }
+        location.href="/myPage?id=${member.id}";
+    }
 
 </script>
 

@@ -122,19 +122,24 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/cart")
-    public String cart() throws Exception {
+    public String cart(String id, Model model) throws Exception {
+        model.addAttribute("cartList", productService.showCartList(id));
         log.info("장바구니 페이지");
         return "cart";
     }
 
-    @GetMapping(value = "/payment")
-    public String payment() throws Exception {
-        log.info("결제 페이지");
+    @PostMapping(value = "/payment")
+    public String payment(ProductOrderDTO order, Model model) throws Exception {
+        productService.buyProduct(order);
+        ProductOrderDTO orderSet = productService.readOrder(order);
+        model.addAttribute("order", orderSet);
+        log.info("결제 페이지 : {}", order);
         return "payment";
     }
 
     @GetMapping(value = "/likeList")
-    public String likeList() throws Exception {
+    public String likeList(String id, Model model) throws Exception {
+        model.addAttribute("likeList", productService.showLikeList(id));
         log.info("찜한 목록 페이지");
         return "likeList";
     }
@@ -145,10 +150,24 @@ public class ProductController {
         return "popup";
     }
 
-    @RequestMapping(value = "/buyProduct", method = RequestMethod.POST)
-    public String buyProduct(ProductOrderDTO order) throws Exception {
-        log.debug("상품구매 접수 : {}", order);
-        productService.buyProduct(order);
-        return "index";
+    @RequestMapping(value = "/addCart")
+    @ResponseBody
+    public void addCart(@RequestBody CartDTO cart) throws Exception {
+        productService.addCart(cart);
+        log.debug("카트 담기 : {}", cart);
     }
+
+    @RequestMapping(value = "/deleteCart")
+    public String deleteCart(int cartNum) throws Exception {
+        productService.deleteCart(cartNum);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/deleteLike")
+    public String deleteLike(int productNum, String id) throws Exception {
+        productService.deleteLike(productNum, id);
+        return "redirect:/";
+    }
+
+
 }

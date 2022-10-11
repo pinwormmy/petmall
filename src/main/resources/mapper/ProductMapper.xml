@@ -5,22 +5,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.mall.petshop.mapper.ProductMapper">
 
-	<resultMap type="com.mall.petshop.product.LikeItDTO" id="likeIt">
-		<result column="ID" property="id" />
-		<result column="PRODUCT_NUM" property="productNum" />
-	</resultMap>
-
 	<resultMap type="com.mall.petshop.product.ProductDTO" id="productDTO">
 		<result column="PRODUCT_NUM" property="productNum" />
-		<result column="SEARCH_TAG" property="searchTag" />
 		<result column="NAME" property="name" />
 		<result column="PRICE" property="price" />
 		<result column="THUMBNAIL" property="thumbnail" />
-		<result column="FREE_SHIPPING" property="freeShipping" />
-		<result column="ON_DISCOUNT" property="onDiscount" />
-		<result column="REG_DATE" property="regDate" />
-		<result column="CONTENT" property="content" />
-		<collection property="likeItDTO" resultMap="likeIt" />
+	</resultMap>
+
+	<resultMap type="com.mall.petshop.product.CartDTO" id="cartDTO">
+		<result column="CART_NUM" property="cartNum" />
+		<result column="PRODUCT_NUM" property="productNum" />
+		<result column="QUANTITY" property="quantity" />
+		<result column="ID" property="id" />
+		<collection property="productDTO" resultMap="productDTO" />
+	</resultMap>
+
+	<resultMap type="com.mall.petshop.product.LikeItDTO" id="likeIt">
+		<result column="PRODUCT_NUM" property="productNum" />
+		<result column="ID" property="id" />
+		<collection property="productDTO" resultMap="productDTO" />
 	</resultMap>
 
 	<select id="searchProduct">
@@ -32,7 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="showProductList" resultType="com.mall.petshop.product.ProductDTO">
 		SELECT * FROM
 			(SELECT rownum r, C.* FROM
-				(SELECT PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, THUMBNAIL, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT, REVIEW_COUNT
+				(SELECT PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, THUMBNAIL, FREE_SHIPPING,
+						ON_DISCOUNT, REG_DATE, CONTENT, REVIEW_COUNT
 					FROM PRODUCT
 					WHERE <include refid="searchKeyword" />
 						<include refid="freeShipping" /> <include refid="onDiscount" />
@@ -153,5 +157,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO PRODUCT_ORDER
 			VALUES(ORDER_NUM_SEQ.NEXTVAL, #{productNum}, #{quantity}, #{id}, SYSDATE, #{totalPrice}, 0)
 	</insert>
+
+	<select id="readOrder" resultType="com.mall.petshop.product.ProductOrderDTO">
+		SELECT *
+			FROM (SELECT * FROM PRODUCT_ORDER
+				WHERE ID=#{id} AND PRODUCT_NUM=#{productNum} AND STATUS=0
+				ORDER BY ORDER_NUM DESC)
+			WHERE ROWNUM=1
+	</select>
+
+	<insert id="addCart">
+		INSERT INTO CART
+			VALUES(CART_NUM_SEQ.NEXTVAL, #{productNum}, #{quantity}, #{id})
+	</insert>
+
+	<select id="showCartList" resultMap="cartDTO">
+		SELECT A.*, B.NAME, B.PRICE, B.THUMBNAIL
+			FROM CART A, PRODUCT B
+			WHERE A.PRODUCT_NUM=B.PRODUCT_NUM
+			AND ID=#{id}
+			ORDER BY CART_NUM DESC
+	</select>
+
+	<delete id="deleteCart">
+		DELETE CART
+			WHERE CART_NUM=#{cartNum}
+	</delete>
+
+	<select id="showLikeList" resultMap="likeIt">
+		SELECT A.*, B.NAME, B.PRICE, B.THUMBNAIL
+			FROM LIKEIT A, PRODUCT B
+			WHERE A.PRODUCT_NUM=B.PRODUCT_NUM AND ID=#{id}
+	</select>
+
+	<delete id="deleteLike">
+		DELETE LIKEIT
+			WHERE PRODUCT_NUM=#{productNum} AND ID=#{id}
+	</delete>
 
 </mapper>

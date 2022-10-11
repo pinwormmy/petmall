@@ -49,42 +49,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="">
-                                        <td class="">
-                                            <div class="product-info">
-                                                <img width="150" src="img/2022/10/08/2a664834-b6eb-4461-9f4f-5aa6b1c94b50_dogrope.png" alt="" />
-                                                <a href="#!" style="font-weight: 400;">세트(목줄+리드줄) 대형견 중형견 개줄 체인 산책줄</a>
-                                            </div>
-                                        </td>
-                                        <td class="">9900원</td>
-                                        <td class="">
-                                            <a class="product-remove" href="#!">취소</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="">
-                                        <td class="">
-                                            <div class="product-info">
-                                                <img width="150" src="img/2022/10/08/2a664834-b6eb-4461-9f4f-5aa6b1c94b50_dogrope.png" alt="" />
-                                                <a href="#!" style="font-weight: 400;">세트(목줄+리드줄) 대형견 중형견 개줄 체인 산책줄</a>
-                                            </div>
-                                        </td>
-                                        <td class="">9900원</td>
-                                        <td class="">
-                                            <a class="product-remove" href="#!">취소</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="">
-                                        <td class="">
-                                            <div class="product-info">
-                                                <img width="150" src="img/2022/10/08/2a664834-b6eb-4461-9f4f-5aa6b1c94b50_dogrope.png" alt="" />
-                                                <a href="#!" style="font-weight: 400;">세트(목줄+리드줄) 대형견 중형견 개줄 체인 산책줄</a>
-                                            </div>
-                                        </td>
-                                        <td class="">9900원</td>
-                                        <td class="">
-                                            <a class="product-remove" href="#!">취소</a>
-                                        </td>
-                                    </tr>
+                                    <c:forEach var="like" items="${likeList}" >
+                                        <tr class="">
+                                            <td class="">
+                                                <div class="product-info">
+                                                    <img width="150" src="${like.productDTO.thumbnail}" alt="" />
+                                                    <a href="/readProduct?productNum=${like.productNum}" style="font-weight: 400;">${like.productDTO.name}</a>
+                                                </div>
+                                            </td>
+                                            <td class="">${like.productDTO.price}원</td>
+                                            <td class="">
+                                                <a class="product-remove" href="/deleteLike?productNum=${like.productNum}&id=${member.id}">취소</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                                 </table>
                                 <hr class="color-hr"><br>

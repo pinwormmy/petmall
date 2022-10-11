@@ -143,9 +143,9 @@ img {
                             <input type="hidden" name="totalPrice" id="totalPrice">
                             <h3>총 <span id="sum">${product.price}</span>원</h3>
                         </div>
-                        <button class="basic-button-white" onclick="comingSoon();">🎁선물하기</button>
-                        <button type="button" class="basic-button-white">🛒장바구니</button>
-                        <button class="basic-button" onclick="buyProduct();">바로 구매하기</button>
+                        <button type="button" class="basic-button-white" onclick="comingSoon();">🎁선물하기</button>
+                        <button type="button" class="basic-button-white" onclick="addCart(${product.productNum})">🛒장바구니</button>
+                        <button type="button" class="basic-button" onclick="buyProduct();">바로 구매하기</button>
 					</form><br>
 					<hr>
 					<div class="shipping">
@@ -204,220 +204,255 @@ img {
 
 <script>
 
-alert("js test 20");
+    //alert("js test 20");
 
-let likeHeart = document.getElementById("likeHeart");
-let loginId;
+    let likeHeart = document.getElementById("likeHeart");
+    let loginId;
 
-if(${member == null}) // 함수에 로그인아이디 전달하되 널값 안들어가게끔 조정
-    loginId = "";
-else
-    loginId = "${member.id}";
-
-let likeProduct = 0;
-function showHeartAboutLike(likeProduct) {
-    console.log("하트 띄우기 - 인수 확인 : ", likeProduct);
-    if(likeProduct == 1)
-        likeHeart.innerHTML = "<a href='javascript:switchToUnlike();'>❤️</a>";
+    if(${member == null}) // 함수에 로그인아이디 전달하되 널값 안들어가게끔 조정
+        loginId = "";
     else
-        likeHeart.innerHTML = "<a href='javascript:switchToLike();'>🤍</a>";
-}
+        loginId = "${member.id}";
 
-checkLike(); // 로그인했는지 보고 갱신
-
-function comingSoon() {
-    alert("업데이트 예정입니다.");
-}
-
-function checkLike() {
-    if(${member == null}) { return false; }
-    fetch("/checkLike?id=" + loginId + "&productNum=" + ${product.productNum})
-    .then(response => response.json())
-    .then(data => {
-        console.log("좋아요 상태 확인", data);
-        showHeartAboutLike(data);
-    });
-}
-
-function switchToLike() {
-    if(${member == null}){
-        location.href="/login";
-        return false;
+    let likeProduct = 0;
+    function showHeartAboutLike(likeProduct) {
+        console.log("하트 띄우기 - 인수 확인 : ", likeProduct);
+        if(likeProduct == 1)
+            likeHeart.innerHTML = "<a href='javascript:switchToUnlike();'>❤️</a>";
+        else
+            likeHeart.innerHTML = "<a href='javascript:switchToLike();'>🤍</a>";
     }
-    console.log("좋아요 상태 추가 ㄱㄱ");
-    fetch("/switchToLike", {
-        method: "POST",
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify({
-            id: loginId,
-            productNum: "${product.productNum}",
-        }),
-    })
-    .then((data) => {
-        console.log("좋아요로 전환함",);
-        checkLike();
-    });
-}
 
-function switchToUnlike() {
-    if(${member == null}){
-        location.href="/login";
-        return false;
+    checkLike(); // 로그인했는지 보고 갱신
+
+    function comingSoon() {
+        alert("업데이트 예정입니다.");
     }
-    console.log("좋아요 상태 취소 ㄱㄱ");
-    fetch("/switchToUnlike?id=" + loginId + "&productNum=" + "${product.productNum}", {
-        method: "DELETE",
-    })
-    .then((data) => {
-        console.log("좋아요 취소함");
-        checkLike();
-    });
-}
 
-function urlClip(){
-	let url = '';
-	let urlText = document.createElement("textarea");
-	document.body.prepend(urlText);
-	url = window.document.location.href;
-	urlText.value = url;
-	urlText.select();
-	document.execCommand("copy");
-	document.body.removeChild(urlText);
-	alert("해당 상품의 주소가 복사되었습니다. 가족, 친구들에게 소개해주세요~!")
-}
-
-let reviewContent = document.getElementById("content");
-showReviewList();
-
-function addReview() {
-    if(${member == null}) { location.href='/login' };
-    console.log("리뷰입력 값 : ", reviewContent.value);
-    if(reviewContent.value == "") {
-        alert("리뷰 내용을 작성해주세요~");
-        return false;
+    function checkLike() {
+        if(${member == null}) { return false; }
+        fetch("/checkLike?id=" + loginId + "&productNum=" + ${product.productNum})
+        .then(response => response.json())
+        .then(data => {
+            console.log("좋아요 상태 확인", data);
+            showHeartAboutLike(data);
+        });
     }
-    fetch("/addReview", {
-        method: 'POST',
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify({
-            productNum : ${product.productNum},
-            id : "${member.id}",
-            content : reviewContent.value,
+
+    function switchToLike() {
+        if(${member == null}){
+            location.href="/login";
+            return false;
+        }
+        console.log("좋아요 상태 추가 ㄱㄱ");
+        fetch("/switchToLike", {
+            method: "POST",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                id: loginId,
+                productNum: "${product.productNum}",
+            }),
         })
-    })
-    .then((data) => {
-        console.log(data);
-        updateReviewCount(${product.productNum});
-        showReviewList();
-    });
-    reviewContent.value = "";
-}
+        .then((data) => {
+            console.log("좋아요로 전환함",);
+            checkLike();
+        });
+    }
 
-function showReviewList(reviewPage) {
-    pageSettingAndLoadReview(reviewPage);
-}
+    function switchToUnlike() {
+        if(${member == null}){
+            location.href="/login";
+            return false;
+        }
+        console.log("좋아요 상태 취소 ㄱㄱ");
+        fetch("/switchToUnlike?id=" + loginId + "&productNum=" + "${product.productNum}", {
+            method: "DELETE",
+        })
+        .then((data) => {
+            console.log("좋아요 취소함");
+            checkLike();
+        });
+    }
 
-function pageSettingAndLoadReview(reviewPage) {
-    fetch("/reviewPageSetting", {
+    function urlClip(){
+        let url = '';
+        let urlText = document.createElement("textarea");
+        document.body.prepend(urlText);
+        url = window.document.location.href;
+        urlText.value = url;
+        urlText.select();
+        document.execCommand("copy");
+        document.body.removeChild(urlText);
+        alert("해당 상품의 주소가 복사되었습니다. 가족, 친구들에게 소개해주세요~!")
+    }
+
+    let reviewContent = document.getElementById("content");
+    showReviewList();
+
+    function addReview() {
+        if(${member == null}) { location.href='/login' };
+        console.log("리뷰입력 값 : ", reviewContent.value);
+        if(reviewContent.value == "") {
+            alert("리뷰 내용을 작성해주세요~");
+            return false;
+        }
+        fetch("/addReview", {
             method: 'POST',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
-                recentPage : reviewPage,
-                productNum : ${product.productNum}
+                productNum : ${product.productNum},
+                id : "${member.id}",
+                content : reviewContent.value,
             })
         })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data);
-        loadReviewFetch(data);
-        let reviewPageDivTag = document.getElementById("reviews-page");
-        reviewPageDivTag.innerHTML = "";
-        let reviewPageHtml = "";
+        .then((data) => {
+            console.log(data);
+            updateReviewCount(${product.productNum});
+            showReviewList();
+        });
+        reviewContent.value = "";
+    }
 
-        if(data.prevPageSetPoint >= 1) {
-            reviewPageHtml +="<a href='javascript:pageSettingAndLoadReview(" + data.prevPageSetPoint + ")'>◁</a>";
-        }
-        if(data.totalPage > 1) {
-            for(let i=data.pageBeginPoint; i<=data.pageEndPoint; i++) {
-                if(i == data.recentPage) {
-                    reviewPageHtml += " " + i + " ";
-                }else {
-                    reviewPageHtml += "<a href='javascript:pageSettingAndLoadReview(" + i + ")'>" + i + " </a>";
+    function showReviewList(reviewPage) {
+        pageSettingAndLoadReview(reviewPage);
+    }
+
+    function pageSettingAndLoadReview(reviewPage) {
+        fetch("/reviewPageSetting", {
+                method: 'POST',
+                headers: {"Content-Type" : "application/json"},
+                body: JSON.stringify({
+                    recentPage : reviewPage,
+                    productNum : ${product.productNum}
+                })
+            })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            loadReviewFetch(data);
+            let reviewPageDivTag = document.getElementById("reviews-page");
+            reviewPageDivTag.innerHTML = "";
+            let reviewPageHtml = "";
+
+            if(data.prevPageSetPoint >= 1) {
+                reviewPageHtml +="<a href='javascript:pageSettingAndLoadReview(" + data.prevPageSetPoint + ")'>◁</a>";
+            }
+            if(data.totalPage > 1) {
+                for(let i=data.pageBeginPoint; i<=data.pageEndPoint; i++) {
+                    if(i == data.recentPage) {
+                        reviewPageHtml += " " + i + " ";
+                    }else {
+                        reviewPageHtml += "<a href='javascript:pageSettingAndLoadReview(" + i + ")'>" + i + " </a>";
+                    }
                 }
             }
-        }
-        if(data.nextPageSetPoint <= data.totalPage) {
-            reviewPageHtml +="<a href='javascript:pageSettingAndLoadReview(" + data.nextPageSetPoint + ")'>▷</a>";
-        }
-        reviewPageDivTag.innerHTML += reviewPageHtml;
-    });
-}
-
-function loadReviewFetch(pageDTO) {
-    console.log("리뷰 불러오기 펫치 시작전");
-    fetch("/showReviewList", {
-        method: "POST",
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify(pageDTO),
-    })
-    .then((response) => response.json())
-    .then((data) => showReviewWithHtml(data));
-}
-
-function showReviewWithHtml(ReviewDTOList) {
-    let reviewDivTag = document.getElementById("reviews-list");
-    reviewDivTag.innerHTML = "";
-    let reviewListHtml = "";
-    reviewDivTag.innerHTML += reviewHtmlWithString(reviewListHtml, ReviewDTOList);
-    console.log("댓글 코맨트 소스 작업  반영 확인");
-}
-
-function reviewHtmlWithString(reviewListHtml, ReviewDTOList) {
-    console.log("댓글 코맨트 소스 반복문 준비 확인");
-    for(let review of ReviewDTOList) {
-        reviewListHtml += "<div class='media'><div class='media-body'><div class='well'><div class='media-heading'><b>";
-        reviewListHtml += review.id +" </b><small> " + review.regDate + "</small></div><p>" + review.content;
-        reviewListHtml = displayDeleteButton(reviewListHtml, review) + "</p></div></div></div>";
+            if(data.nextPageSetPoint <= data.totalPage) {
+                reviewPageHtml +="<a href='javascript:pageSettingAndLoadReview(" + data.nextPageSetPoint + ")'>▷</a>";
+            }
+            reviewPageDivTag.innerHTML += reviewPageHtml;
+        });
     }
-    return reviewListHtml;
-}
 
-function displayDeleteButton(reviewListHtml, reviewDTO) {
-    if( ("${member.id}" == reviewDTO.id) || ("${member.lv}" == 2) ) {
-        reviewListHtml += "<button class='pull-right btn btn-theme' onclick='deleteReview(";
-        reviewListHtml += reviewDTO.reviewNum + ");'>삭제</button>";
+    function loadReviewFetch(pageDTO) {
+        console.log("리뷰 불러오기 펫치 시작전");
+        fetch("/showReviewList", {
+            method: "POST",
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify(pageDTO),
+        })
+        .then((response) => response.json())
+        .then((data) => showReviewWithHtml(data));
     }
-    return reviewListHtml;
-}
 
-function deleteReview(reviewNum) {
-    fetch("/deleteReview?reviewNum=" + reviewNum, {method:"DELETE"})
-    .then(data => {
-        updateReviewCount(${product.productNum});
-        showReviewList();
-    })
-    .catch(error => alert("댓글 삭제 오류"));
-}
+    function showReviewWithHtml(ReviewDTOList) {
+        let reviewDivTag = document.getElementById("reviews-list");
+        reviewDivTag.innerHTML = "";
+        let reviewListHtml = "";
+        reviewDivTag.innerHTML += reviewHtmlWithString(reviewListHtml, ReviewDTOList);
+        console.log("댓글 코맨트 소스 작업  반영 확인");
+    }
 
-function updateReviewCount(productNum) {
-    fetch("/updateReviewCount?productNum=" + productNum, {method:"PUT"})
-        .then(data => console.log("댓글 업데이트"))
-        .catch(error => alert("댓글수 갱신 오류"));
-}
+    function reviewHtmlWithString(reviewListHtml, ReviewDTOList) {
+        console.log("댓글 코맨트 소스 반복문 준비 확인");
+        for(let review of ReviewDTOList) {
+            reviewListHtml += "<div class='media'><div class='media-body'><div class='well'><div class='media-heading'><b>";
+            reviewListHtml += review.id +" </b><small> " + review.regDate + "</small></div><p>" + review.content;
+            reviewListHtml = displayDeleteButton(reviewListHtml, review) + "</p></div></div></div>";
+        }
+        return reviewListHtml;
+    }
 
-$( document ).ready( function() {
-    $('#quantity').on( 'focus keyup', function() {
-        var a = $('#quantity').val();
-        var b = ${product.price};
-        console.log(a, b);
-        var sum = a * b;
-        $( '#sum' ).text( sum );
-        $('#totalPrice').val(sum);
-        console.log("합계인풋 테스트 : ", $('#totalPrice').val());
-    });
-} );
+    function displayDeleteButton(reviewListHtml, reviewDTO) {
+        if( ("${member.id}" == reviewDTO.id) || ("${member.lv}" == 2) ) {
+            reviewListHtml += "<button class='pull-right btn btn-theme' onclick='deleteReview(";
+            reviewListHtml += reviewDTO.reviewNum + ");'>삭제</button>";
+        }
+        return reviewListHtml;
+    }
 
-let buyOrCartProduct = document.getElementById("buyOrCartProduct");
+    function deleteReview(reviewNum) {
+        fetch("/deleteReview?reviewNum=" + reviewNum, {method:"DELETE"})
+        .then(data => {
+            updateReviewCount(${product.productNum});
+            showReviewList();
+        })
+        .catch(error => alert("댓글 삭제 오류"));
+    }
+
+    function updateReviewCount(productNum) {
+        fetch("/updateReviewCount?productNum=" + productNum, {method:"PUT"})
+            .then(data => console.log("댓글 업데이트"))
+            .catch(error => alert("댓글수 갱신 오류"));
+    }
+
+    $('#totalPrice').val(${product.price});
+    console.log("초기화 가격 확인 : ", $('#totalPrice').val());
+
+    $( document ).ready( function() {
+        $('#quantity').on( 'focus keyup', function() {
+            var a = $('#quantity').val();
+            var b = ${product.price};
+            console.log(a, b);
+            var sum = a * b;
+            $( '#sum' ).text( sum );
+            $('#totalPrice').val(sum);
+            console.log("합계인풋 테스트 : ", $('#totalPrice').val());
+        });
+    } );
+
+    let buyOrCartProduct = document.getElementById("buyOrCartProduct");
+
+    function buyProduct() {
+        if(${member == null}) {
+            alert("로그인이 필요합니다.");
+            return false;
+        }
+        let popTitle = "구매하기";
+        window.open("", popTitle, "width=375, height=500");
+        buyOrCartProduct.target = popTitle;
+        buyOrCartProduct.action = "/payment";
+        buyOrCartProduct.submit();
+    }
+
+    let quantity = document.getElementById("quantity");
+
+    function addCart(productNum) {
+        if(${member == null}) {
+            alert("로그인이 필요합니다.");
+            return false;
+        };
+        fetch("/addCart", {
+            method: 'POST',
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                productNum : productNum,
+                id : "${member.id}",
+                quantity : quantity.value,
+            })
+        })
+        .then((data) => alert("장바구니에 담았습니다."));
+    }
+
 
 </script>
 

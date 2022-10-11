@@ -50,119 +50,30 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <tr class="">
-                                    <td class="">
-                                        <div class="product-info">
-                                            <img width="100" src="img/2022/10/08/2a664834-b6eb-4461-9f4f-5aa6b1c94b50_dogrope.png" alt="" />
-                                            <a href="#!" style="font-weight: 400;">세트(목줄+리드줄) 대형견 중형견 개줄 체인 산책줄</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <select name="quantity" id="quantity">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="input">수량입력</option>
-                                        </select>
-                                        <input type="text" id="inputQuantity" name="quantity" placeholder="수량직접입력">
-                                    </td>
-                                    <td class="">9900원</td>
-                                    <td class="">
-                                        <a class="product-remove" href="#!">삭제</a>
-                                    </td>
-                                </tr>
-                                <tr class="">
-                                    <td class="">
-                                        <div class="product-info">
-                                            <img width="100" src="img/2022/10/08/2a664834-b6eb-4461-9f4f-5aa6b1c94b50_dogrope.png" alt="" />
-                                            <a href="#!" style="font-weight: 400;">세트(목줄+리드줄) 대형견 중형견 개줄 체인 산책줄</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <select name="quantity" id="quantity">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="input">수량입력</option>
-                                        </select>
-                                        <input type="text" id="inputQuantity" name="quantity" placeholder="수량직접입력">
-                                    </td>
-                                    <td class="">9900원</td>
-                                    <td class="">
-                                        <a class="product-remove" href="#!">삭제</a>
-                                    </td>
-                                </tr>
-                                <tr class="">
-                                    <td class="">
-                                        <div class="product-info">
-                                            <img width="100" src="img/2022/10/08/2a664834-b6eb-4461-9f4f-5aa6b1c94b50_dogrope.png" alt="" />
-                                            <a href="#!" style="font-weight: 400;">세트(목줄+리드줄) 대형견 중형견 개줄 체인 산책줄</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="text" id="inputQuantity" name="quantity" value="1" placeholder="수량입력">
-                                    </td>
-                                    <td class="">9900원</td>
-                                    <td class="">
-                                        <a class="product-remove" href="#!">삭제</a>
-                                    </td>
-                                </tr>
-                                <tr class="">
-                                    <td class="">
-                                        <div class="product-info">
-                                            <img width="100" src="img/2022/10/08/2a664834-b6eb-4461-9f4f-5aa6b1c94b50_dogrope.png" alt="" />
-                                            <a href="#!" style="font-weight: 400;">세트(목줄+리드줄) 대형견 중형견 개줄 체인 산책줄</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <select name="quantity" id="quantity">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="input">수량입력</option>
-                                        </select>
-                                        <input type="text" id="inputQuantity" name="quantity" placeholder="수량직접입력">
-                                    </td>
-                                    <td class="">9900원</td>
-                                    <td class="">
-                                        <a class="product-remove" href="#!">삭제</a>
-                                    </td>
-                                </tr>
-                                <tr class="">
-                                    <td class="">
-                                        <div class="product-info">
-                                            <img width="100" src="img/2022/10/08/2a664834-b6eb-4461-9f4f-5aa6b1c94b50_dogrope.png" alt="" />
-                                            <a href="#!" style="font-weight: 400;">세트(목줄+리드줄) 대형견 중형견 개줄 체인 산책줄</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <select name="quantity" id="quantity">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="input">수량입력</option>
-                                        </select>
-                                        <input type="text" id="inputQuantity" name="quantity" placeholder="수량직접입력">
-                                    </td>
-                                    <td class="">9900원</td>
-                                    <td class="">
-                                        <a class="product-remove" href="#!">삭제</a>
-                                    </td>
-                                </tr>
-                                </tbody>
+                                    <tbody>
+                                        <c:forEach var="cart" items="${cartList}">
+                                            <tr class="">
+                                                <td class="">
+                                                    <div class="product-info">
+                                                        <img width="100" src="${cart.productDTO.thumbnail}" alt="" />
+                                                        <a href="/readProduct?productNum=${cart.productNum}"
+                                                        style="font-weight: 400;">${cart.productDTO.name}</a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="inputQuantity" name="quantity" value="${cart.quantity}" placeholder="수량입력">
+                                                </td>
+                                                <td><span id="totalPrice">${cart.productDTO.price}</span>원</td>
+                                                <td class="">
+                                                    <a class="product-remove" href="/deleteCart?cartNum=${cart.cartNum}">삭제</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
                                 </table>
                                 <hr class="color-hr"><br>
                                 <button type="button" class="pay-button pull-right" onclick="window.open('/payment', 'window_payment', 'width=375, height=500');">구매하기</button>
-                                <span class="full-price pull-right">총 120,000원 &nbsp;</span>
+                                <span class="full-price pull-right">총 121,500원 &nbsp;</span>
                             </form>
                         </div>
                     </div>
@@ -182,19 +93,6 @@
         alert("업데이트 예정입니다.");
     }
 
-    // 상품수량 select 태그에서 직접입력으로 전환
-    // 여러 항목 개별로 돌아가게 수정해야함(가격계산항목도 마찬가지)
-    $(function(){
-        $("#inputQuantity").hide();
-        $("#quantity").change(function() {
-            if($("#quantity").val() == "input") {
-                $("#inputQuantity").show();
-                $("#quantity").hide();
-            }else {
-                $("#inputQuantity").hide();
-            }
-        })
-    });
 
 </script>
 

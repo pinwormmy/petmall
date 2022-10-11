@@ -248,7 +248,7 @@
                                     <a href="/readProduct?productNum=${productNum}">${product.name}</a>
                                     <p class="price"><c:if test="${product.onDiscount == 1}"><span class="bage">할인중</span></c:if>
                                     ${product.price}원
-                                        <a href="#">🛒</a>
+                                        <a href="javascript:addCart(${product.productNum});">🛒</a>
                                     </p>
                                 </div>
                             </div>
@@ -290,13 +290,12 @@
 <%@ include file="/WEB-INF/views/include/footer.jspf" %>
 
 <script>
-    //alert("js test 02");
-
-
+    //alert("js test 03");
 
     function comingSoon() {
         alert("업데이트 예정입니다.");
     }
+
     function clickFreeShipping() {
         let freeShippingBox = document.getElementById("freeShipping");
         if(freeShippingBox.checked) {
@@ -345,6 +344,27 @@
             window.open("/popup", "event", "width=500, height=525");
         }
     });
+
+    function addCart(productNum) {
+        if(${member == null}) {
+            alert("로그인이 필요합니다.");
+            return false;
+        };
+        fetch("/addCart", {
+            method: 'POST',
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                productNum : productNum,
+                id : "${member.id}",
+                quantity : 1,
+            })
+        })
+        .then((data) => alert("장바구니에 담았습니다."));
+    }
+
+
+
+
 </script>
 
 </body>

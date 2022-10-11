@@ -3,10 +3,12 @@ package com.mall.petshop.product;
 import lombok.Data;
 
 @Data
-public class LikeItDTO {
+public class CartDTO {
 
-    private String id;
+    private int CartNum;
     private int productNum;
+    private int quantity;
+    private String id;
 
     private ProductDTO productDTO;
 }
