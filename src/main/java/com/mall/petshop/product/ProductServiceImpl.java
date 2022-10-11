@@ -114,4 +114,9 @@ public class ProductServiceImpl implements ProductService {
     public void updateReviewCount(int postNum) throws Exception {
         productMapper.updateReviewCount(postNum);
     }
+
+    @Override
+    public void buyProduct(ProductOrderDTO order) throws Exception {
+        productMapper.buyProduct(order);
+    }
 }

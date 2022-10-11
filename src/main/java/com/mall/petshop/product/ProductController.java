@@ -126,4 +126,29 @@ public class ProductController {
         log.info("장바구니 페이지");
         return "cart";
     }
+
+    @GetMapping(value = "/payment")
+    public String payment() throws Exception {
+        log.info("결제 페이지");
+        return "payment";
+    }
+
+    @GetMapping(value = "/likeList")
+    public String likeList() throws Exception {
+        log.info("찜한 목록 페이지");
+        return "likeList";
+    }
+
+    @GetMapping(value = "/popup")
+    public String popup() throws Exception {
+        log.info("팝업 띄우기");
+        return "popup";
+    }
+
+    @RequestMapping(value = "/buyProduct", method = RequestMethod.POST)
+    public String buyProduct(ProductOrderDTO order) throws Exception {
+        log.debug("상품구매 접수 : {}", order);
+        productService.buyProduct(order);
+        return "index";
+    }
 }

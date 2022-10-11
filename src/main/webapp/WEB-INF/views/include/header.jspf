@@ -22,7 +22,6 @@ FACEBOOK: https://www.facebook.com/themefisher
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title>Aviato | E-commerce template</title>
 
 <!-- Mobile Specific Metas
 ================================================== -->
@@ -231,9 +230,9 @@ hr {
     <div class="header-menu">
         <ul>
             <li><a href="/"><img src="/img/logo.png" height="80px"></a></li>
-            <form><li><input class="searchbar" name="keyword"></li></form>
-            <li><img src="/img/heart.png" height="38px"><br>찜한목록</li>
-            <li><img src="/img/person.png" height="38px"><br>나의정보</li>
+            <form action="/"><li><input class="searchbar" name="keyword"></li></form>
+            <li><a href="/likeList"><img src="/img/heart.png" height="38px"><br>찜한목록</a></li>
+            <li><a href="/myPage"><img src="/img/person.png" height="38px"><br>나의정보</a></li>
             <li><a href="/cart"><img src="/img/cart.png" height="38px"><br>장바구니</a></li>
         </ul>
     <div>

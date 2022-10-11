@@ -132,15 +132,21 @@ img {
                         <div class="card-event"><b>야옹카드</b> 만원 이상 무료 배송 + 추가 0.5% 적립 </div>
 					</div>
 					<hr>
-					<div class="product-quantity">
-						<div class="product-quantity-slider">
-							<input id="product-quantity" type="text" value="0" name="product-quantity">
-						</div>
-						<h3>총 19,800원</h3>
-					</div>
-					<button href="cart.html" class="basic-button-white" onclick="comingSoon();">🎁선물하기</button>
-					<button href="cart.html" class="basic-button-white">🛒장바구니</button>
-					<button href="cart.html" class="basic-button">바로 구매하기</button><br><br>
+					<form id="buyOrCartProduct" action="/buyProduct" method="post">
+					    <div class="product-quantity">
+                            <div class="product-quantity-slider">
+                                <input id="quantity" type="text" value="1" name="quantity" style="width: 120px; border: none;">
+                            </div>
+                            <input type="hidden" name="productNum" value="${product.productNum}">
+                            <input type="hidden" name="quantity">
+                            <input type="hidden" name="id" value="${member.id}">
+                            <input type="hidden" name="totalPrice" id="totalPrice">
+                            <h3>총 <span id="sum">${product.price}</span>원</h3>
+                        </div>
+                        <button class="basic-button-white" onclick="comingSoon();">🎁선물하기</button>
+                        <button type="button" class="basic-button-white">🛒장바구니</button>
+                        <button class="basic-button" onclick="buyProduct();">바로 구매하기</button>
+					</form><br>
 					<hr>
 					<div class="shipping">
 					    <span>
@@ -163,8 +169,12 @@ img {
 			<div class="col-xs-12">
 				<div class="tabCommon mt-20">
 					<ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#details" aria-expanded="true">상세정보</a></li>
-						<li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false">리뷰(${product.reviewCount})</a></li>
+						<li class="active">
+						<a data-toggle="tab" href="#details" aria-expanded="true" style="background-color: Turquoise;">
+						상세정보</a></li>
+						<li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false"
+						style="background-color: Turquoise;">
+						리뷰(${product.reviewCount})</a></li>
 					</ul>
 					<div class="tab-content patternbg">
 						<div id="details" class="tab-pane fade active in" style="text-align: center;">
@@ -394,6 +404,20 @@ function updateReviewCount(productNum) {
         .then(data => console.log("댓글 업데이트"))
         .catch(error => alert("댓글수 갱신 오류"));
 }
+
+$( document ).ready( function() {
+    $('#quantity').on( 'focus keyup', function() {
+        var a = $('#quantity').val();
+        var b = ${product.price};
+        console.log(a, b);
+        var sum = a * b;
+        $( '#sum' ).text( sum );
+        $('#totalPrice').val(sum);
+        console.log("합계인풋 테스트 : ", $('#totalPrice').val());
+    });
+} );
+
+let buyOrCartProduct = document.getElementById("buyOrCartProduct");
 
 </script>
 

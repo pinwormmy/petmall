@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,6 +18,10 @@
     background-color: Turquoise;
     border: none;
     border-radius: 10px;
+}
+#inputQuantity {
+    width: 90px;
+    height: 30px;
 }
 </style>
 </head>
@@ -103,15 +105,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <select name="quantity" id="quantity">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="input">수량입력</option>
-                                        </select>
-                                        <input type="text" id="inputQuantity" name="quantity" placeholder="수량직접입력">
+                                        <input type="text" id="inputQuantity" name="quantity" value="1" placeholder="수량입력">
                                     </td>
                                     <td class="">9900원</td>
                                     <td class="">
@@ -167,7 +161,7 @@
                                 </tbody>
                                 </table>
                                 <hr class="color-hr"><br>
-                                <button type="button" class="pay-button pull-right">구매하기</button>
+                                <button type="button" class="pay-button pull-right" onclick="window.open('/payment', 'window_payment', 'width=375, height=500');">구매하기</button>
                                 <span class="full-price pull-right">총 120,000원 &nbsp;</span>
                             </form>
                         </div>

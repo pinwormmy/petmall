@@ -35,4 +35,6 @@ public interface ProductService {
     void deleteReview(int reviewNum) throws Exception;
 
     void updateReviewCount(int postNum) throws Exception;
+
+    void buyProduct(ProductOrderDTO order) throws Exception;
 }

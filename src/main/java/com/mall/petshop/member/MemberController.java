@@ -3,6 +3,7 @@ package com.mall.petshop.member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -91,5 +92,10 @@ public class MemberController {
         MemberDTO loginData = memberService.submitLogin(member);
         HttpSession session = request.getSession();
         session.setAttribute("member", loginData);
+    }
+
+    @GetMapping(value = "/myPage")
+    public String myPage() {
+        return "myPage";
     }
 }

@@ -164,7 +164,7 @@
 				<div class="widget product-category">
 					<h4 class="widget-title">카테고리</h4>
 					<div class="panel-group commonAccordion" id="accordion" role="tablist" aria-multiselectable="true">
-					  	<div class="panel panel-default">
+					  	<div class="panel panel-default" style="border-color: Turquoise; border-radius: 10px;">
 						    <div class="panel-heading" role="tab" id="headingOne">
 						      	<h4 class="panel-title">
 						        	<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -187,7 +187,7 @@
 					    </div>
 					</div>
 
-					<div class="panel panel-default">
+					<div class="panel panel-default" style="border-color: Turquoise; border-radius: 10px;">
 					    <div class="panel-heading" role="tab" id="headingTwo">
 					      <h4 class="panel-title">
 					        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
@@ -292,6 +292,8 @@
 <script>
     //alert("js test 02");
 
+
+
     function comingSoon() {
         alert("업데이트 예정입니다.");
     }
@@ -316,6 +318,33 @@
             "/?sortType=${page.sortType}&keyword=${page.keyword}&freeShipping=${page.freeShipping}&onDiscount=0";
         }
     }
+
+    //쿠키 불러오기
+    function getCookie(name) {
+        // alert("js test 쿠키몬스터");
+        var obj = name + "=";
+        var x = 0;
+        while ( x <= document.cookie.length )
+        {
+            var y = (x+obj.length);
+            if ( document.cookie.substring( x, y ) == obj ) {
+                if ((endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+                    endOfCookie = document.cookie.length;
+                return unescape( document.cookie.substring( y, endOfCookie ) );
+            }
+            x = document.cookie.indexOf( " ", x ) + 1;
+
+            if ( x == 0 ) break;
+        }
+        return "";
+    }
+
+    $(function(){
+        console.log(getCookie("popup"));
+        if(getCookie("popup1") !="Y"){
+            window.open("/popup", "event", "width=500, height=525");
+        }
+    });
 </script>
 
 </body>

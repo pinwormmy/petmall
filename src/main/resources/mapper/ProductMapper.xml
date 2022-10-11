@@ -149,4 +149,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				WHERE PRODUCT_NUM=#{productNum}
 	</update>
 
+	<insert id="buyProduct">
+		INSERT INTO PRODUCT_ORDER
+			VALUES(ORDER_NUM_SEQ.NEXTVAL, #{productNum}, #{quantity}, #{id}, SYSDATE, #{totalPrice}, 0)
+	</insert>
+
 </mapper>

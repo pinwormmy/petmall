@@ -3,6 +3,7 @@ package com.mall.petshop.mapper;
 import com.mall.petshop.member.MemberDTO;
 import com.mall.petshop.product.LikeItDTO;
 import com.mall.petshop.product.ProductDTO;
+import com.mall.petshop.product.ProductOrderDTO;
 import com.mall.petshop.product.ReviewDTO;
 import com.mall.petshop.util.PageDTO;
 import org.apache.ibatis.annotations.Param;
@@ -42,4 +43,6 @@ public interface ProductMapper {
     void updateReviewCount(int postNum) throws Exception;
 
     int countTotalReview(PageDTO page) throws Exception;
+
+    void buyProduct(ProductOrderDTO order) throws Exception;
 }
