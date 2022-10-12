@@ -6,9 +6,9 @@ import lombok.Data;
 public class PageDTO {
 	
 	private int pageBeginPoint;
-	private int postEndPoint;
+	private int displayPostLimit; // MySql로 변경해서 DTO에 추가됨
 	private int postBeginPoint;
-	private int pageEndPoint;
+	private int pageSetLimit; // limit문때문에 추가
 	private int prevPageSetPoint;
 	private int nextPageSetPoint;
 	private int totalPage;

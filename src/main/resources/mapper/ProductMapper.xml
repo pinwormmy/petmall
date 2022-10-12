@@ -33,21 +33,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="showProductList" resultType="com.mall.petshop.product.ProductDTO">
-		SELECT * FROM
-			(SELECT rownum r, C.* FROM
-				(SELECT PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, THUMBNAIL, FREE_SHIPPING,
-						ON_DISCOUNT, REG_DATE, CONTENT, REVIEW_COUNT
-					FROM PRODUCT
-					WHERE <include refid="searchKeyword" />
-						<include refid="freeShipping" /> <include refid="onDiscount" />
-					<include refid="sortOption" />) C)
-			WHERE r BETWEEN #{postBeginPoint} AND #{postEndPoint}
+		SELECT PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, THUMBNAIL, FREE_SHIPPING,
+				ON_DISCOUNT, REG_DATE, CONTENT, REVIEW_COUNT
+			FROM PRODUCT
+			WHERE <include refid="searchKeyword" />
+			<include refid="freeShipping" /> <include refid="onDiscount" />
+			<include refid="sortOption" />
+			LIMIT #{postBeginPoint}, #{displayPostLimit}
 	</select>
 
 	<sql id="searchKeyword">
-		(SEARCH_TAG like '%'||#{keyword}||'%' OR
-		NAME like '%'||#{keyword}||'%' OR
-		CONTENT like '%'||#{keyword}||'%')
+		(SEARCH_TAG like CONCAT('%', #{keyword}, '%') OR
+		NAME like CONCAT('%', #{keyword}, '%') OR
+		CONTENT like CONCAT('%', #{keyword}, '%'))
 	</sql>
 
 	<sql id="sortOption">
@@ -130,14 +128,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="showReviewList" resultType="com.mall.petshop.product.ReviewDTO">
-		SELECT * FROM
-			(SELECT ROWNUM R, A.* FROM
-				(SELECT A.PRODUCT_NUM, A.review_NUM, A.ID, A.REG_DATE, A.CONTENT
-					FROM REVIEW A
-					WHERE A.PRODUCT_NUM=#{productNum}
-					ORDER BY A.REVIEW_NUM DESC) A)
-			WHERE R BETWEEN #{postBeginPoint} AND #{postEndPoint}
-			ORDER BY REVIEW_NUM
+		SELECT PRODUCT_NUM, review_NUM, ID, REG_DATE, CONTENT
+			FROM REVIEW
+			WHERE PRODUCT_NUM=#{productNum}
+			ORDER BY REVIEW_NUM DESC
+			LIMIT #{postBeginPoint}, #{displayPostLimit}
 	</select>
 
 	<delete id="deleteReview">

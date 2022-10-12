@@ -14,7 +14,7 @@ public class PageService {
         this.PAGESET_LIMIT = pageSetLimit;
     }
 
-    public PageDTO calculatePage(PageDTO page) throws Exception {
+    public PageDTO calculatePage(PageDTO page) {
 
         int postEndPoint = page.getRecentPage() * DISPLAY_POST_LIMIT;
         int postBeginPoint = postEndPoint - DISPLAY_POST_LIMIT + 1;
@@ -23,15 +23,15 @@ public class PageService {
         int pageBeginPoint = (page.getRecentPage()-1) / PAGESET_LIMIT * PAGESET_LIMIT + 1;
         int pageEndPoint = pageBeginPoint + PAGESET_LIMIT - 1;
         if(pageEndPoint > totalPage)
-            pageEndPoint = totalPage;
+            PAGESET_LIMIT = totalPage % PAGESET_LIMIT;
 
         int prevPageSetPoint = pageBeginPoint - 1;
         int nextPageSetPoint = pageBeginPoint + PAGESET_LIMIT;
 
         page.setPageBeginPoint(pageBeginPoint);
-        page.setPostEndPoint(postEndPoint);
+        page.setDisplayPostLimit(DISPLAY_POST_LIMIT);
         page.setPostBeginPoint(postBeginPoint);
-        page.setPageEndPoint(pageEndPoint);
+        page.setPageSetLimit(PAGESET_LIMIT);
         page.setPrevPageSetPoint(prevPageSetPoint);
         page.setNextPageSetPoint(nextPageSetPoint);
         page.setTotalPage(totalPage);
