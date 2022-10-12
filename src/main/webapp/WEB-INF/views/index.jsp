@@ -26,6 +26,7 @@
 .product-item {
     min-height: 265px;
 }
+
 </style>
 </head>
 <body>
@@ -283,9 +284,9 @@
         다음</a>
     </c:if>
 </div>
-
-<button onclick="location.href='/addProduct'">상품등록</button>
-
+<c:if test="${member.lv == 2}">
+    <button class="admin-button" onclick="location.href='/addProduct'">상품등록</button>
+</c:if>
 
 <%@ include file="/WEB-INF/views/include/footer.jspf" %>
 
@@ -361,9 +362,6 @@
         })
         .then((data) => alert("장바구니에 담았습니다."));
     }
-
-
-
 
 </script>
 

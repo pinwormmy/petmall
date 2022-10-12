@@ -53,5 +53,7 @@ public interface ProductMapper {
 
     List<LikeItDTO> showLikeList(String id) throws Exception;
 
-    void deleteLike(int productNum, String id) throws Exception;
+    void deleteLike(@Param("productNum") int productNum, @Param("id") String id) throws Exception;
+
+    void resetCart(String id) throws Exception;
 }

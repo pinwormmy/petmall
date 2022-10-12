@@ -65,14 +65,14 @@
 				            <table id="purchase-receipt" class="table">
 				                <thead>
 									<tr>
-					                    <th width="80px"><strong>주문번호: #</strong></th>
-					                    <th>${order.orderNum}</th>
+					                    <th width="80px"><strong>주문번호:</strong></th>
+					                    <th># ${order.orderNum}</th>
 				                  	</tr>
 				                </thead>
 				                <tbody>
 				                  	<tr>
 				                    	<td><strong>받는이:</strong></td>
-				                    	<td>${id}</td>
+				                    	<td>${order.id}</td>
 				                  	</tr>
 				                  	<tr>
                                         <td><strong>연락처:</strong></td>
@@ -94,7 +94,7 @@
 				                  	</tr>
 				                  	<tr>
 				                    	<td><strong>결제금액</strong></td>
-				                    	<td>${totalPrice}원</td>
+				                    	<td>${order.totalPrice}원</td>
 				                    </tr>
 				                    <tr>
 				                      	<td></td>
@@ -139,9 +139,11 @@ Essential Scripts
 <script src="js/script.js"></script>
 <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <script>
 
 function fakeResult() {
+    opener.parent.location.replace("/finishPayment");
     window.close();
 }
 

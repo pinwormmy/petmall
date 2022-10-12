@@ -26,7 +26,6 @@
 
 <div class="cart-title">
     <h1>❤️찜한 목록</h1>
-    <p>🤍를 누르면 해당 상품을 찜할 수 있습니다. 찜한 모든 상품을 여기서 확인해보세요~!
 </div>
 
 <div class="page-wrapper" style="padding: 0 0 30px 0;">
@@ -49,6 +48,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <c:if test="${empty likeList}">
+                                        <tr class="">
+                                            <td class="">
+                                               🤍를 누르면 해당 상품을 찜할 수 있습니다. 마음에 드는 상품을 찜해보세요~!
+                                            </td>
+                                        </tr>
+                                    </c:if>
                                     <c:forEach var="like" items="${likeList}" >
                                         <tr class="">
                                             <td class="">

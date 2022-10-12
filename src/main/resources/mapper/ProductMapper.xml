@@ -195,4 +195,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE PRODUCT_NUM=#{productNum} AND ID=#{id}
 	</delete>
 
+	<delete id="resetCart">
+		DELETE CART
+			WHERE ID=#{id}
+	</delete>
+
 </mapper>

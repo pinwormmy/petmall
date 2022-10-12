@@ -149,4 +149,9 @@ public class ProductServiceImpl implements ProductService {
     public void deleteLike(int productNum, String id) throws Exception {
         productMapper.deleteLike(productNum, id);
     }
+
+    @Override
+    public void resetCart(String id) throws Exception {
+        productMapper.resetCart(id);
+    }
 }

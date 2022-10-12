@@ -30,9 +30,9 @@ public class HomeController {
 
     @RequestMapping(value = "/home")
     public String home2(Model model, PageDTO page) throws Exception{
-        log.info("메인 화면");
         model.addAttribute("page", productService.pageSetting(page));
         model.addAttribute("productList", productService.showProductList(page));
+        log.info("메인 화면 진입");
         log.debug(page.toString());
         return "index";
     }

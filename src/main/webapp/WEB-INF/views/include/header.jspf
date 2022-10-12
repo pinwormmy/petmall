@@ -207,6 +207,11 @@ hr {
 .sort-option ul li{
     margin-bottom: 3px;
 }
+.admin-button {
+    color: white;
+    background-color: Turquoise;
+    margin: 10px;
+}
 </style>
 </head>
 

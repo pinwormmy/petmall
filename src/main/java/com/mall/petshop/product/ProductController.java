@@ -16,8 +16,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 @Slf4j
 @Controller
 public class ProductController {
@@ -132,9 +130,16 @@ public class ProductController {
     public String payment(ProductOrderDTO order, Model model) throws Exception {
         productService.buyProduct(order);
         ProductOrderDTO orderSet = productService.readOrder(order);
+        productService.resetCart(order.getId());
         model.addAttribute("order", orderSet);
         log.info("결제 페이지 : {}", order);
         return "payment";
+    }
+
+    @RequestMapping(value = "/finishPayment")
+    public String finishPayment(HttpServletRequest request) throws Exception {
+        log.info("결제완료 메세지");
+        return alertMsgAndGoUrl(request, "결제가 완료되었습니다. 구매해주셔서 감사합니다.", "home");
     }
 
     @GetMapping(value = "/likeList")
@@ -158,16 +163,21 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/deleteCart")
-    public String deleteCart(int cartNum) throws Exception {
+    public String deleteCart(int cartNum, String id) throws Exception {
         productService.deleteCart(cartNum);
-        return "redirect:/";
+        return "redirect:/cart?id=" + id;
     }
 
     @RequestMapping(value = "/deleteLike")
     public String deleteLike(int productNum, String id) throws Exception {
         productService.deleteLike(productNum, id);
-        return "redirect:/";
+        return "redirect:/likeList?id=" + id;
     }
 
-
+    // alert.jsp 연결문 정리
+    private String alertMsgAndGoUrl(HttpServletRequest request, String msg, String url) {
+        request.setAttribute("msg", msg);
+        request.setAttribute("url", url);
+        return "alert";
+    }
 }

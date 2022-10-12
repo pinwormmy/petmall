@@ -89,6 +89,11 @@ img {
     padding: 5px;
     height: 38px;
 }
+.addProductByadmin {
+    color: white;
+    background-color: Turquoise;
+    margin: 10px;
+}
 </style>
 </head>
 <body>
@@ -97,8 +102,8 @@ img {
 
 <c:if test="${member.lv == 2}">
     <h3>관리자 메뉴</h3>
-    <br><button type="button" onclick="location.href='/deleteProduct?productNum=${product.productNum}'">상품삭제</button>
-    <button type="button" onclick="location.href='/modifyProduct'">상품수정</button>
+    <br><button class="admin-button" type="button" onclick="location.href='/deleteProduct?productNum=${product.productNum}'">상품삭제</button>
+    <button class="admin-button" type="button" onclick="location.href='/modifyProduct'">상품수정</button>
 </c:if>
 <section class="single-product" style="padding: 0;">
 	<div class="container">
@@ -132,7 +137,7 @@ img {
                         <div class="card-event"><b>야옹카드</b> 만원 이상 무료 배송 + 추가 0.5% 적립 </div>
 					</div>
 					<hr>
-					<form id="buyOrCartProduct" action="/buyProduct" method="post">
+					<form method="post" id="buyOrCartProduct">
 					    <div class="product-quantity">
                             <div class="product-quantity-slider">
                                 <input id="quantity" type="text" value="1" name="quantity" style="width: 120px; border: none;">
@@ -140,7 +145,7 @@ img {
                             <input type="hidden" name="productNum" value="${product.productNum}">
                             <input type="hidden" name="quantity">
                             <input type="hidden" name="id" value="${member.id}">
-                            <input type="hidden" name="totalPrice" id="totalPrice">
+                            <input type="hidden" name="totalPrice" id="totalPrice" value="11000"><!-- 테스트값 -->
                             <h3>총 <span id="sum">${product.price}</span>원</h3>
                         </div>
                         <button type="button" class="basic-button-white" onclick="comingSoon();">🎁선물하기</button>
@@ -427,7 +432,7 @@ img {
             alert("로그인이 필요합니다.");
             return false;
         }
-        let popTitle = "구매하기";
+        let popTitle = "바로 구매하기";
         window.open("", popTitle, "width=375, height=500");
         buyOrCartProduct.target = popTitle;
         buyOrCartProduct.action = "/payment";
@@ -452,7 +457,6 @@ img {
         })
         .then((data) => alert("장바구니에 담았습니다."));
     }
-
 
 </script>
 
