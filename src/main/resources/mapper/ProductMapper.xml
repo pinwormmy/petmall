@@ -86,8 +86,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="addProduct">
-		INSERT INTO PRODUCT(PRODUCT_NUM, SEARCH_TAG, NAME, PRICE, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT, THUMBNAIL)
-			VALUES(PRODUCT_SEQ.NEXTVAL, #{searchTag}, #{name}, #{price}, #{freeShipping}, #{onDiscount}, sysdate, #{content}, #{thumbnail})
+		INSERT INTO PRODUCT(SEARCH_TAG, NAME, PRICE, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT, THUMBNAIL)
+			VALUES(#{searchTag}, #{name}, #{price}, #{freeShipping}, #{onDiscount}, now(), #{content}, #{thumbnail})
 	</insert>
 
 	<delete id="deleteProduct">
@@ -123,8 +123,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="addReview">
-		INSERT INTO REVIEW(PRODUCT_NUM, REVIEW_NUM, ID, REG_DATE, CONTENT)
-			VALUES(#{productNum}, REVIEW_NUM_SEQ.nextval, #{id}, SYSDATE, #{content})
+		INSERT INTO REVIEW(ID, REG_DATE, CONTENT)
+			VALUES(#{id}, now(), #{content})
 	</insert>
 
 	<select id="showReviewList" resultType="com.mall.petshop.product.ReviewDTO">
@@ -149,8 +149,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<insert id="buyProduct">
-		INSERT INTO PRODUCT_ORDER
-			VALUES(ORDER_NUM_SEQ.NEXTVAL, #{productNum}, #{quantity}, #{id}, SYSDATE, #{totalPrice}, 0)
+		INSERT INTO PRODUCT_ORDER(PRODUCT_NUM, QUANTITY, ID, REG_DATE, TOTAL_PRICE, STATUS)
+			VALUES(#{productNum}, #{quantity}, #{id}, now(), #{totalPrice}, 0)
 	</insert>
 
 	<select id="readOrder" resultType="com.mall.petshop.product.ProductOrderDTO">
@@ -162,8 +162,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="addCart">
-		INSERT INTO CART
-			VALUES(CART_NUM_SEQ.NEXTVAL, #{productNum}, #{quantity}, #{id})
+		INSERT INTO CART(PRODUCT_NUM, QUANTITY, ID)
+			VALUES(#{productNum}, #{quantity}, #{id})
 	</insert>
 
 	<select id="showCartList" resultMap="cartDTO">

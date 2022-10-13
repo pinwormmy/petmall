@@ -42,7 +42,7 @@ public class MemberController {
         request.getSession().setAttribute("pageBeforeLogin", request.getHeader("Referer"));
         MemberDTO member = new MemberDTO();
         member.setId("midori"); // midori는 시연용 일반계정입니다.
-        member.setPw("a111");
+        member.setPw("1111");
         MemberDTO loginData = memberService.submitLogin(member);
         HttpSession session = request.getSession();
         session.setAttribute("member", loginData);
