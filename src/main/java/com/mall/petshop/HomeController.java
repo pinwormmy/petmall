@@ -24,7 +24,6 @@ public class HomeController {
         model.addAttribute("page", productService.pageSetting(page));
         model.addAttribute("productList", productService.showProductList(page));
         log.info("메인 화면 진입");
-        log.debug(page.toString());
         return "index";
     }
 

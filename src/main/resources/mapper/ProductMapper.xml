@@ -43,9 +43,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<sql id="searchKeyword">
-		(SEARCH_TAG like CONCAT('%', #{keyword}, '%') OR
+		( SEARCH_TAG like CONCAT('%', #{keyword}, '%') OR
 		NAME like CONCAT('%', #{keyword}, '%') OR
-		CONTENT like CONCAT('%', #{keyword}, '%'))
+		CONTENT like CONCAT('%', #{keyword}, '%') )
 	</sql>
 
 	<sql id="sortOption">
@@ -91,7 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<delete id="deleteProduct">
-		DELETE PRODUCT
+		DELETE FROM PRODUCT
 			WHERE PRODUCT_NUM=#{productNum}
 	</delete>
 
@@ -112,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<delete id="switchToUnlike">
-		DELETE LIKEIT
+		DELETE FROM LIKEIT
 			WHERE PRODUCT_NUM=#{productNum}
 			AND ID=#{id}
 	</delete>
@@ -123,8 +123,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<insert id="addReview">
-		INSERT INTO REVIEW(ID, REG_DATE, CONTENT)
-			VALUES(#{id}, now(), #{content})
+		INSERT INTO REVIEW(ID, REG_DATE, CONTENT, PRODUCT_NUM)
+			VALUES(#{id}, now(), #{content}, #{productNum})
 	</insert>
 
 	<select id="showReviewList" resultType="com.mall.petshop.product.ReviewDTO">
@@ -136,7 +136,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<delete id="deleteReview">
-		DELETE from REVIEW
+		DELETE FROM REVIEW
 			WHERE REVIEW_NUM=#{reviewNum}
 	</delete>
 
@@ -149,7 +149,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<insert id="buyProduct">
-		INSERT INTO PRODUCT_ORDER(PRODUCT_NUM, QUANTITY, ID, REG_DATE, TOTAL_PRICE, STATUS)
+		INSERT INTO PRODUCT_ORDER(PRODUCT_NUM, QUANTITY, ID, ORDER_DATE, TOTAL_PRICE, STATUS)
 			VALUES(#{productNum}, #{quantity}, #{id}, now(), #{totalPrice}, 0)
 	</insert>
 
@@ -157,8 +157,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 			FROM (SELECT * FROM PRODUCT_ORDER
 				WHERE ID=#{id} AND PRODUCT_NUM=#{productNum} AND STATUS=0
-				ORDER BY ORDER_NUM DESC)
-			WHERE ROWNUM=1
+				ORDER BY ORDER_NUM DESC) A
+			LIMIT 1
 	</select>
 
 	<insert id="addCart">
@@ -167,31 +167,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="showCartList" resultMap="cartDTO">
-		SELECT A.*, B.NAME, B.PRICE, B.THUMBNAIL
-			FROM CART A, PRODUCT B
-			WHERE A.PRODUCT_NUM=B.PRODUCT_NUM
-			AND ID=#{id}
-			ORDER BY CART_NUM DESC
+		SELECT A.*, B.PRICE, B.NAME, B.THUMBNAIL
+			FROM CART A
+			INNER JOIN PRODUCT B
+			ON A.PRODUCT_NUM = B.PRODUCT_NUM
+			WHERE A.ID=#{id}
+			ORDER BY A.CART_NUM DESC
 	</select>
 
 	<delete id="deleteCart">
-		DELETE CART
+		DELETE FROM CART
 			WHERE CART_NUM=#{cartNum}
 	</delete>
 
 	<select id="showLikeList" resultMap="likeIt">
 		SELECT A.*, B.NAME, B.PRICE, B.THUMBNAIL
-			FROM LIKEIT A, PRODUCT B
-			WHERE A.PRODUCT_NUM=B.PRODUCT_NUM AND ID=#{id}
+			FROM LIKEIT A
+			INNER JOIN PRODUCT B
+			ON A.PRODUCT_NUM=B.PRODUCT_NUM
+			WHERE ID=#{id}
 	</select>
 
 	<delete id="deleteLike">
-		DELETE LIKEIT
+		DELETE FROM LIKEIT
 			WHERE PRODUCT_NUM=#{productNum} AND ID=#{id}
 	</delete>
 
 	<delete id="resetCart">
-		DELETE CART
+		DELETE FROM CART
 			WHERE ID=#{id}
 	</delete>
 

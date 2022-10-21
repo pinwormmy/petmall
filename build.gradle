@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.mall'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.12-SNAPSHOT'
 sourceCompatibility = '8'
 
 configurations {
