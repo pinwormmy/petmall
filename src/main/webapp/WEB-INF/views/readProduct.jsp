@@ -103,7 +103,7 @@ img {
 <c:if test="${member.lv == 2}">
     <h3>관리자 메뉴</h3>
     <br><button class="admin-button" type="button" onclick="location.href='/deleteProduct?productNum=${product.productNum}'">상품삭제</button>
-    <button class="admin-button" type="button" onclick="location.href='/modifyProduct'">상품수정</button>
+    <button class="admin-button" type="button" onclick="comingSoon();">상품수정</button>
 </c:if>
 <section class="single-product" style="padding: 0;">
 	<div class="container">
@@ -211,6 +211,10 @@ img {
 
     //alert("js test 20");
 
+    function comingSoon() {
+        alert("업데이트 예정입니다.");
+    }
+
     let likeHeart = document.getElementById("likeHeart");
     let loginId;
 
@@ -295,7 +299,10 @@ img {
     showReviewList();
 
     function addReview() {
-        if(${member == null}) { location.href='/login' };
+        if(${member == null}) {
+            location.href='/login';
+            return false;
+        };
         console.log("리뷰입력 값 : ", reviewContent.value);
         if(reviewContent.value == "") {
             alert("리뷰 내용을 작성해주세요~");
