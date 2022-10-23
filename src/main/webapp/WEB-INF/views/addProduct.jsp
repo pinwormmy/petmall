@@ -41,7 +41,7 @@ img {
 <%@ include file="/WEB-INF/views/include/footer.jspf" %>
 
 <script>
-    alert("js test01");
+    //alert("js test01");
     CKEDITOR.replace('content', {
         filebrowserUploadUrl : '/ckUpload/imageUpload.do',
         width : '70%',

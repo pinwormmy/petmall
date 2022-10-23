@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    @Value("${spring.servlet.multipart.location}")
+    @Value("../webapps/img")
     String uploadPath;
 
     @Autowired

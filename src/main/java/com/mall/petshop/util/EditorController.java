@@ -27,6 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class EditorController {
 
+	//이미지 경로 생성
+	@Value("../webapps/img")
+	String path;
+
     @RequestMapping(value="ckUpload/imageUpload.do", method = RequestMethod.POST)
     public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws Exception{
 
@@ -40,8 +44,7 @@ public class EditorController {
     		String fileName = upload.getOriginalFilename();
     		byte[] bytes = upload.getBytes();
     		
-    		//이미지 경로 생성
-    		String path = "C:\\petshop\\img/";
+
     		String ckUploadPath = path + uid + "_" + fileName;
     		
     		File folder = new File(path);
@@ -86,8 +89,7 @@ public class EditorController {
     @RequestMapping(value="/ckUpload/ckImgSubmit.do")
     public void ckSubmit(@RequestParam(value="uid") String uid, @RequestParam(value="fileName") 
     String fileName, HttpServletResponse response) throws ServletException, IOException{
-    	
-    	String path = "C:\\petshop\\img/";
+
     	String sDirPath = path + uid + "_" + fileName;
     	
     	File imgFile = new File(sDirPath);

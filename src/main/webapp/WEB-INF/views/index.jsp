@@ -246,7 +246,7 @@
                                     </a>
                                 </div>
                                 <div class="product-content">
-                                    <a href="/readProduct?productNum=${productNum}">${product.name}</a>
+                                    <a href="/readProduct?productNum=${product.productNum}">${product.name}</a>
                                     <p class="price"><c:if test="${product.onDiscount == 1}"><span class="bage">할인중</span></c:if>
                                     ${product.price}원
                                         <a href="javascript:addCart(${product.productNum});">🛒</a>

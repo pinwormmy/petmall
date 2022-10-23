@@ -10,9 +10,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 public class WebConfig implements WebMvcConfigurer {
 
-    private String connectPath = "/img/**";
+    @Value("/img/**")
+    private String connectPath;
 
-    @Value("${spring.servlet.multipart.location}")
+    @Value("file:////tomcat/webapps/img")
     private String uploadPath;
 
     @Override
@@ -20,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
         log.debug("업로드 컨피그 작동 확인 연결경로 : {}", connectPath);
         log.debug("업로드 컨피그 작동 확인 파일경로 : {}", uploadPath);
         registry.addResourceHandler(connectPath)
-                .addResourceLocations("file:///" + uploadPath);
+                .addResourceLocations(uploadPath);
     }
 
 }
