@@ -303,6 +303,7 @@ img {
             location.href='/login';
             return false;
         };
+
         console.log("리뷰입력 값 : ", reviewContent.value);
         if(reviewContent.value == "") {
             alert("리뷰 내용을 작성해주세요~");
