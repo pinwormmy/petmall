@@ -13,6 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("/img/**")
     private String connectPath;
 
+    // 로컬 실행환경 구축하기
     @Value("file:////tomcat/webapps/img")
     private String uploadPath;
 
