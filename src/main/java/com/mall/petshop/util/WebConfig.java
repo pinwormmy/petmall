@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     // 로컬 실행환경 구축하기
     // 깃이그노어에서 설정파일 캐시 삭제함
-    @Value("file:////tomcat/webapps/img")
+    @Value("${path.upload.img}")
     private String uploadPath;
 
     @Override
