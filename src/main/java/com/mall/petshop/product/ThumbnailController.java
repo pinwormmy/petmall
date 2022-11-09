@@ -58,7 +58,7 @@ public class ThumbnailController {
 			File dirPath = 
 					new File(uploadPath + path);
 			if (!dirPath.exists()) {
-				log.debug("폴더 없으니 한번은 꼭 나와야 한다! {}", uploadPath + path);
+				log.debug("생성된 폴더 : {}", dirPath);
 				dirPath.mkdirs();
 			}
 
