@@ -252,10 +252,10 @@ hr {
             <div class="bar3"></div>
         </div>
     </li>
-    <li style="padding-top: 5px;">홈</li>
-    <li>베스트</li>
-    <li>특가</li>
-    <li>이벤트</li>
+    <li style="padding-top: 10px;"><a href="/">홈</a></li>
+    <li style="padding-top: 10px;">베스트</li>
+    <li style="padding-top: 10px;">특가</li>
+    <li style="padding-top: 10px;">이벤트</li>
 </ul>
 </div>
 <hr class="color-hr">

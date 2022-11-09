@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    @Value("../webapps/img")
+    @Value("${path.upload.detail}")
     String uploadPath;
 
     @Autowired
@@ -52,9 +52,11 @@ public class ProductController {
         String fileName = null;
         if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
             fileName = ThumbnailController.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+            log.debug("썸네일 업로드 완료");
             productDTO.setThumbnail(File.separator + "img" + ymdPath + File.separator + fileName);
         } else {
             fileName = File.separator + "img" + File.separator + "none.jpg";
+            log.debug("썸네일없음 그림 생성");
             productDTO.setThumbnail(fileName);
         }
         productService.addProduct(productDTO);

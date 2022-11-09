@@ -13,8 +13,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("/img/**")
     private String connectPath;
 
-    // 로컬 실행환경 구축하기
-    @Value("file:////tomcat/webapps/img")
+    // 로컬이랑 온라인 절대경로 차이 생김 '끝에 /'
+    @Value("${path.upload.img}")
     private String uploadPath;
 
     @Override

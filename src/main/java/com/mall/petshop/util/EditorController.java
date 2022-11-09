@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class EditorController {
 
 	//이미지 경로 생성
-	@Value("../webapps/img")
+	@Value("${path.upload.detail}")
 	String path;
 
     @RequestMapping(value="ckUpload/imageUpload.do", method = RequestMethod.POST)
@@ -48,7 +48,7 @@ public class EditorController {
     		String ckUploadPath = path + uid + "_" + fileName;
     		
     		File folder = new File(path);
-    		log.debug("path: {}" + path);
+    		log.debug("path: {}", path);
     		
     		//해당 디렉토리 확인
     		if(!folder.exists()){
