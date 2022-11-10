@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class MemberController {
 
-    @Autowired
+    // autowired 사용 자제하라는 거에 대해 찾아보기 
+    @Autowired 
     MemberService memberService;
 
+    // rest api 적용 준비
     @RequestMapping(value = "/login")
     public String login(HttpServletRequest request) throws Exception{
         log.info("로그인 페이지");
