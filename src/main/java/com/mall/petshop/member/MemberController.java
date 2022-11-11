@@ -16,10 +16,12 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class MemberController {
 
-    @Autowired
+    // autowired 사용 자제하라는 거에 대해 찾아보기 
+    @Autowired 
     MemberService memberService;
 
-    @RequestMapping(value = "/login")
+    // 로그인 rest는 나중에 적용(세션 개념때문에 공부 더 필요. 상품쪽 먼저하는게 쉬울듯)
+    @GetMapping(value = "/login-form")
     public String login(HttpServletRequest request) throws Exception{
         log.info("로그인 페이지");
         // 로그인 이전 페이지 정보 세션에 저장
