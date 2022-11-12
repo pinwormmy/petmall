@@ -26,26 +26,26 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @RequestMapping(value = "/searchProduct")
-    public String searchProduct(String keyword) throws Exception {
+    @GetMapping(value = "/products/{keyword}")
+    public String searchProduct(@PathVariable String keyword) throws Exception {
         productService.searchProduct(keyword);
         return "index";
     }
 
-    @GetMapping(value = "/readProduct")
-    public String readProduct(Model model, int productNum) throws Exception {
+    @GetMapping(value = "/products/{productNum}")
+    public String readProduct(Model model, @PathVariable int productNum) throws Exception {
         log.info("{}번 상품 조회", productNum);
         model.addAttribute("product", productService.readProduct(productNum));
         return "readProduct";
     }
 
-    @GetMapping(value = "/addProduct")
+    @GetMapping(value = "/products/form")
     public String addProduct() throws Exception {
         log.info("상품 등록 페이지");
         return "addProduct";
     }
 
-    @RequestMapping(value = "/submitAddProduct", method = RequestMethod.POST)
+    @PostMapping(value = "/products")
     public String submitProduct(ProductDTO productDTO, MultipartFile file) throws Exception {
         String imgUploadPath = uploadPath;
         String ymdPath = ThumbnailController.calcPath(imgUploadPath);
@@ -63,8 +63,8 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/deleteProduct")
-    public String deleteProduct(int productNum) throws Exception {
+    @DeleteMapping(value = "/products/{productNum}")
+    public String deleteProduct(@PathVariable int productNum) throws Exception {
         productService.deleteProduct(productNum);
         return "redirect:/";
     }
