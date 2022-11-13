@@ -90,37 +90,6 @@ public class ProductController {
         productService.switchToUnlike(id, productNum);
     }
 
-    @RequestMapping(value = "/addReview")
-    @ResponseBody
-    public void addReview(@RequestBody ReviewDTO reviewDTO) throws Exception {
-        log.debug("리뷰 인수 확인 : {}", reviewDTO.getContent());
-        productService.addReview(reviewDTO);
-    }
-
-    @RequestMapping(value = "/reviewPageSetting")
-    @ResponseBody
-    public PageDTO reviewPageSetting(@RequestBody PageDTO page) throws Exception {
-        return productService.pageSetting(page);
-    }
-
-    @RequestMapping(value = "/showReviewList")
-    @ResponseBody
-    public List<ReviewDTO> showReviewList(@RequestBody PageDTO page) throws Exception {
-        return productService.showReviewList(page);
-    }
-
-    @RequestMapping(value = "/deleteReview")
-    @ResponseBody
-    public void deleteReview(int reviewNum) throws Exception {
-        productService.deleteReview(reviewNum);
-    }
-
-    @RequestMapping(value = "/updateReviewCount")
-    @ResponseBody
-    public void updateReviewCount(int productNum) throws Exception {
-        productService.updateReviewCount(productNum);
-    }
-
     @RequestMapping(value = "/cart")
     public String cart(String id, Model model) throws Exception {
         model.addAttribute("cartList", productService.showCartList(id));
