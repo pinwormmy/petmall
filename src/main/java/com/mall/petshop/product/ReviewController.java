@@ -12,7 +12,7 @@ import java.util.List;
 public class ReviewController {
 
     @Autowired
-    ProductService productService; // 코드 정리부터해야하는거 아니니? 폴더랑 파일 따로 뺄지 검토하기
+    ProductService productService; // 상품서비스에 둘지 따로뺄지?
 
     @PostMapping(value="/reviews")
     public void addReview(@RequestBody ReviewDTO reviewDTO) throws Exception {
@@ -20,8 +20,7 @@ public class ReviewController {
         productService.addReview(reviewDTO);
     }
 
-    @RequestMapping(value = "/reviewPageSetting") // url 명 다시 짓기
-    @ResponseBody
+    @GetMapping(value = "/reviews/page") // 페이지세팅문 이렇게 둬도 되나?
     public PageDTO reviewPageSetting(@RequestBody PageDTO page) throws Exception {
         return productService.pageSetting(page);
     }
@@ -31,14 +30,13 @@ public class ReviewController {
         return productService.showReviewList(page);
     }
 
-    @DeleteMapping(value="/reviews/{review-num}") // 파라미터명도 어떻게 짓는지 찾아보기
-    public void deleteReview(int reviewNum) throws Exception {
-        productService.deleteReview(reviewNum);
+    @DeleteMapping(value="/reviews/{reviewnum}")
+    public void deleteReview(@PathVariable int reviewnum) throws Exception {
+        productService.deleteReview(reviewnum);
     }
 
-    @RequestMapping(value = "/updateReviewCount")
-    @ResponseBody
-    public void updateReviewCount(int productNum) throws Exception {
-        productService.updateReviewCount(productNum);
+    @PutMapping(value = "/reviews/count/{productnum}")
+    public void updateReviewCount(@PathVariable int productnum) throws Exception {
+        productService.updateReviewCount(productnum);
     }
 }
