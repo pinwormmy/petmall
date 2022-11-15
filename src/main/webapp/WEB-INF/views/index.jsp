@@ -241,7 +241,7 @@
                         <div class="col-md-4">
                             <div class="product-item" style="margin-bottom: 15px;">
                                 <div class="product-thumbnail">
-                                    <a href="/readProduct?productNum=${product.productNum}">
+                                    <a href="/products/${product.productNum}">
                                         <img class="img-responsive" src="${product.thumbnail}"/>
                                     </a>
                                 </div>
@@ -285,7 +285,7 @@
     </c:if>
 </div>
 <c:if test="${member.lv == 2}">
-    <button class="admin-button" onclick="location.href='/addProduct'">상품등록</button>
+    <button class="admin-button" onclick="location.href='/products/form'">상품등록</button>
 </c:if>
 
 <%@ include file="/WEB-INF/views/include/footer.jspf" %>
