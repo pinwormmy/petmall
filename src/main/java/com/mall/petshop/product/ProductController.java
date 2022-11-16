@@ -133,6 +133,7 @@ public class ProductController {
         log.debug("카트 담기 : {}", cart);
     }
 
+
     @RequestMapping(value = "/deleteCart")
     public String deleteCart(int cartNum, String id) throws Exception {
         productService.deleteCart(cartNum);
