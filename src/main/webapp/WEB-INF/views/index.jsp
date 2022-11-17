@@ -39,6 +39,7 @@
 			    <h2 class="page-name" align="center"><b>${page.keyword}</b>에 대한 검색결과</h1>
 				<div class="related-keyword">
                     <button type="button" class="keyword-button">연관단어</button>
+                    <!-- 홈컨트롤러 경로 수정되면 전부다 경로 바꿔야함 ㅋ 어떻게 하는게 좋은지 검토필요 -->
                     <c:choose>
                         <c:when test="${page.keyword == '고양이용품'}">
                             <a href="/?sortType=${page.sortType}&keyword=고양이">고양이</a>
@@ -241,7 +242,7 @@
                         <div class="col-md-4">
                             <div class="product-item" style="margin-bottom: 15px;">
                                 <div class="product-thumbnail">
-                                    <a href="/readProduct?productNum=${product.productNum}">
+                                    <a href="/products/${product.productNum}">
                                         <img class="img-responsive" src="${product.thumbnail}"/>
                                     </a>
                                 </div>
@@ -285,7 +286,7 @@
     </c:if>
 </div>
 <c:if test="${member.lv == 2}">
-    <button class="admin-button" onclick="location.href='/addProduct'">상품등록</button>
+    <button class="admin-button" onclick="location.href='/products/form'">상품등록</button>
 </c:if>
 
 <%@ include file="/WEB-INF/views/include/footer.jspf" %>

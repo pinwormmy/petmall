@@ -30,6 +30,7 @@ public class ReviewController {
         return productService.showReviewList(page);
     }
 
+    // a태그 쓰면 겹쳐서 안된다. fetch api 써야하는듯? 좀더 찾아보기
     @DeleteMapping(value="/reviews/{reviewnum}")
     public void deleteReview(@PathVariable int reviewnum) throws Exception {
         productService.deleteReview(reviewnum);

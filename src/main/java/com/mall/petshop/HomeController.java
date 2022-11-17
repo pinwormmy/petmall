@@ -19,6 +19,7 @@ public class HomeController {
     @Autowired
     ProductService productService;
 
+    // rest 하게 가려면 경로 어떻게 짜나?
     @RequestMapping(value = "/")
     public String home(Model model, PageDTO page) throws Exception{
         model.addAttribute("page", productService.pageSetting(page));
