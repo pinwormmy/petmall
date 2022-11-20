@@ -19,6 +19,7 @@ public class HomeController {
     @Autowired
     ProductService productService;
 
+    // 기본 틀 잡고 수정해서 컬럼형 사이트 제작 예정
     // rest 하게 가려면 경로 어떻게 짜나?
     @RequestMapping(value = "/")
     public String home(Model model, PageDTO page) throws Exception{
