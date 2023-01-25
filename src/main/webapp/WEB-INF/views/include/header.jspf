@@ -114,7 +114,6 @@ a {
     background-position: 350px center;
     margin-right: 80px;
 }
-
 .searchbar:focus {
     outline: none;
 }
