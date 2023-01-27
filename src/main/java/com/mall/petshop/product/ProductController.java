@@ -26,8 +26,8 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping(value = "/products/{keyword}")
-    public String searchProduct(@PathVariable String keyword) throws Exception {
+    @GetMapping(value = "/products")
+    public String searchProduct(String keyword) throws Exception {
         productService.searchProduct(keyword);
         return "index";
     }
@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/products")
-    public String submitProduct(ProductDTO productDTO, MultipartFile file) throws Exception {
+    public String submitProduct(@RequestBody ProductDTO productDTO, MultipartFile file) throws Exception {
         String imgUploadPath = uploadPath;
         String ymdPath = ThumbnailController.calcPath(imgUploadPath);
         String fileName = null;

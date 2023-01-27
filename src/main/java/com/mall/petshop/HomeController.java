@@ -1,7 +1,5 @@
 package com.mall.petshop;
 
-import com.mall.petshop.product.LikeItDTO;
-import com.mall.petshop.product.ProductDTO;
 import com.mall.petshop.product.ProductService;
 import com.mall.petshop.util.PageDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Slf4j
 @Controller
