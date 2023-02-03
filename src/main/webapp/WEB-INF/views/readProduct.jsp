@@ -102,7 +102,7 @@ img {
 
 <c:if test="${member.lv == 2}">
     <h3>관리자 메뉴</h3>
-    <br><button class="admin-button" type="button" onclick="location.href='/deleteProduct?productNum=${product.productNum}'">상품삭제</button>
+    <br><button class="admin-button" type="button" onclick="deleteProduct();">상품삭제</button>
     <button class="admin-button" type="button" onclick="comingSoon();">상품수정</button>
 </c:if>
 <section class="single-product" style="padding: 0;">
@@ -464,6 +464,16 @@ img {
             })
         })
         .then((data) => alert("장바구니에 담았습니다."));
+    }
+
+    function deleteProduct() {
+        if(confirm("해당 상품을 삭제하시겠습니까?")) {
+            fetch("/products/" + ${product.productNum}, {method: 'DELETE'})
+            .then(() => {
+                alert("상품이 삭제되었습니다.");
+                location.href="/";
+            });
+        }
     }
 
 </script>

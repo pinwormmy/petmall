@@ -18,7 +18,7 @@ img {
 <%@ include file="/WEB-INF/views/include/header.jspf" %>
 
 <br>
-<form action="/submitAddProduct" method="post" enctype="multipart/form-data">
+<form action="/products" method="post" enctype="multipart/form-data">
     상품명 : <input type="text" name="name" size="100"><br>
     가  격 : <input type="text" name="price">원<br>
     검색태그 : <textarea name="searchTag" cols="100" rows="5">고양이용품</textarea><br><br>
@@ -41,7 +41,7 @@ img {
 <%@ include file="/WEB-INF/views/include/footer.jspf" %>
 
 <script>
-    //alert("js test01");
+    alert("js test03");
     CKEDITOR.replace('content', {
         filebrowserUploadUrl : '/ckUpload/imageUpload.do',
         width : '70%',

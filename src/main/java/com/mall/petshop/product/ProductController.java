@@ -40,8 +40,14 @@ public class ProductController {
         return "addProduct";
     }
 
+    @GetMapping(value = "/products/form/{productnum}")
+    public String addProduct(Model model, @PathVariable int productnum) throws Exception {
+        log.info("상품 수정 페이지");
+        return "addProduct"; // 수정페이지 안만들어놨네;
+    }
+
     @PostMapping(value = "/products")
-    public String submitProduct(@RequestBody ProductDTO productDTO, MultipartFile file) throws Exception {
+    public String submitProduct(ProductDTO productDTO, MultipartFile file) throws Exception {
         String imgUploadPath = uploadPath;
         String ymdPath = ThumbnailController.calcPath(imgUploadPath);
         String fileName = null;
