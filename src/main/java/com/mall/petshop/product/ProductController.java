@@ -27,10 +27,10 @@ public class ProductController {
         return "index";
     }
 
-    @GetMapping(value = "/products/{productnum}")
-    public String readProduct(Model model, @PathVariable int productnum) throws Exception {
-        log.info("{}번 상품 조회", productnum);
-        model.addAttribute("product", productService.readProduct(productnum));
+    @GetMapping(value = "/products/{productNum}")
+    public String readProduct(Model model, @PathVariable int productNum) throws Exception {
+        log.info("{}번 상품 조회", productNum);
+        model.addAttribute("product", productService.readProduct(productNum));
         return "readProduct";
     }
 
@@ -40,8 +40,8 @@ public class ProductController {
         return "addProduct";
     }
 
-    @GetMapping(value = "/products/form/{productnum}")
-    public String addProduct(Model model, @PathVariable int productnum) throws Exception {
+    @GetMapping(value = "/products/form/{productNum}")
+    public String addProduct(Model model, @PathVariable int productNum) throws Exception {
         log.info("상품 수정 페이지");
         return "addProduct"; // 수정페이지 안만들어놨네;
     }
@@ -64,9 +64,9 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @DeleteMapping(value = "/products/{productnum}")
-    public String deleteProduct(@PathVariable int productnum) throws Exception {
-        productService.deleteProduct(productnum);
+    @DeleteMapping(value = "/products/{productNum}")
+    public String deleteProduct(@PathVariable int productNum) throws Exception {
+        productService.deleteProduct(productNum);
         return "redirect:/";
     }
 
