@@ -51,4 +51,6 @@ public interface ProductService {
     void deleteLike(int productNum, String id) throws Exception;
 
     void resetCart(String id) throws Exception;
+
+    void modifyProduct(ProductDTO productDTO) throws Exception;
 }

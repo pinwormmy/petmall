@@ -34,16 +34,15 @@ public class ProductController {
         return "readProduct";
     }
 
+    // 컨트롤러로 페이지 이동까지 하는 것이 Rest API는 아닌데, 일단 이 정도 선까지 해서 정리하고
+    // 그 다음에 페이지 이동이랑 데이터 처리를 분할
+    // 근데 HATEOAS 적용하려면 httpEntity를 써야하는데, 그러려면, RestContoller 기준으로 써야함
+    // 그래서 일괄 적용차원으로 댓글 기능까지 http메소드 양식으로 정리하고 나서 댓글 기능에 먼저 적용해보기
+
     @GetMapping(value = "/products/form")
     public String addProduct() throws Exception {
         log.info("상품 등록 페이지");
         return "addProduct";
-    }
-
-    @GetMapping(value = "/products/form/{productNum}")
-    public String addProduct(Model model, @PathVariable int productNum) throws Exception {
-        log.info("상품 수정 페이지");
-        return "addProduct"; // 수정페이지 안만들어놨네;
     }
 
     @PostMapping(value = "/products")
@@ -61,6 +60,31 @@ public class ProductController {
             productDTO.setThumbnail(fileName);
         }
         productService.addProduct(productDTO);
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/products/form/{productNum}")
+    public String addProduct(Model model, @PathVariable int productNum) throws Exception {
+        log.info("{}번 상품 수정 페이지", productNum);
+        model.addAttribute("product", productService.readProduct(productNum));
+        return "modifyProduct";
+    }
+
+    @PutMapping(value = "/products/{productNum}") // 이거 되나?
+    public String submitModifyProduct(ProductDTO productDTO, MultipartFile file) throws Exception {
+        String imgUploadPath = uploadPath;
+        String ymdPath = ThumbnailController.calcPath(imgUploadPath);
+        String fileName = null;
+        if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+            fileName = ThumbnailController.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+            log.debug("썸네일 업로드 완료");
+            productDTO.setThumbnail(File.separator + "img" + ymdPath + File.separator + fileName);
+        } else {
+            fileName = File.separator + "img" + File.separator + "none.jpg";
+            log.debug("썸네일없음 그림 생성");
+            productDTO.setThumbnail(fileName);
+        }
+        productService.modifyProduct(productDTO);
         return "redirect:/";
     }
 

@@ -90,6 +90,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			VALUES(#{searchTag}, #{name}, #{price}, #{freeShipping}, #{onDiscount}, now(), #{content}, #{thumbnail})
 	</insert>
 
+	<update id="modifyProduct">
+		UPDATE PRODUCT(SEARCH_TAG, NAME, PRICE, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT, THUMBNAIL)
+			VALUES(#{searchTag}, #{name}, #{price}, #{freeShipping}, #{onDiscount}, now(), #{content}, #{thumbnail})
+			WHERE PRODUCT_NUM=#{productNum}
+	</update>
+
 	<delete id="deleteProduct">
 		DELETE FROM PRODUCT
 			WHERE PRODUCT_NUM=#{productNum}

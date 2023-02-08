@@ -154,4 +154,9 @@ public class ProductServiceImpl implements ProductService {
     public void resetCart(String id) throws Exception {
         productMapper.resetCart(id);
     }
+
+    @Override
+    public void modifyProduct(ProductDTO productDTO) throws Exception {
+        productMapper.modifyProduct(productDTO);
+    }
 }

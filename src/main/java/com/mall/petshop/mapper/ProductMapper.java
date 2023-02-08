@@ -56,4 +56,6 @@ public interface ProductMapper {
     void deleteLike(@Param("productNum") int productNum, @Param("id") String id) throws Exception;
 
     void resetCart(String id) throws Exception;
+
+    void modifyProduct(ProductDTO productDTO) throws Exception;
 }
