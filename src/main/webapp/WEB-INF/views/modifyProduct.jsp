@@ -29,7 +29,7 @@ img {
 
     <div class="selectThumbnail">
         <label for="thumbnailPath">썸네일 이미지용</label><br>
-        <input type="file" id="thumbnailPath" name="file" value="${product.thumbnail}">
+        <input type="file" id="thumbnailPath" name="file">
         <div class="showThumbnailImage">
             <img src="${product.thumbnail}">
         </div>

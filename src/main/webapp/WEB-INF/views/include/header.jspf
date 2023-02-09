@@ -108,7 +108,7 @@ a {
     border: 2px solid Turquoise;
     box-shadow: none;
     text-align: center;
-    background-image: url("/img/search-icon.png");
+    background-image: url("/images/search-icon.png");
     background-repeat: no-repeat;
     background-size: 35px;
     background-position: 350px center;
@@ -233,11 +233,11 @@ hr {
     </div>
     <div class="header-menu">
         <ul>
-            <li><a href="/"><img src="/img/logo.png" height="80px"></a></li>
+            <li><a href="/"><img src="/images/logo.png" height="80px"></a></li>
             <form action="/"><li><input class="searchbar" name="keyword"></li></form>
-            <li><a href="javascript:goLikeIt();"><img src="/img/heart.png" height="38px"><br>찜한목록</a></li>
-            <li><a href="javascript:goMyPage()"><img src="/img/person.png" height="38px"><br>나의정보</a></li>
-            <li><a href="javascript:goCart();"><img src="/img/cart.png" height="38px"><br>장바구니</a></li>
+            <li><a href="javascript:goLikeIt();"><img src="/images/heart.png" height="38px"><br>찜한목록</a></li>
+            <li><a href="javascript:goMyPage()"><img src="/images/person.png" height="38px"><br>나의정보</a></li>
+            <li><a href="javascript:goCart();"><img src="/images/cart.png" height="38px"><br>장바구니</a></li>
         </ul>
     <div>
 </div>

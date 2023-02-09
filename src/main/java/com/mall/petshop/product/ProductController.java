@@ -75,6 +75,7 @@ public class ProductController {
         log.info("상품 수정해서 업로드 처리 중..");
         // 근데 여기서 썸네일 변동사항 없으면 이거 처리할 필요가 없다.
         // 애초에 썸네일 수정할때만 돌아가게 하면 되지..
+        // 추후수정
         String imgUploadPath = uploadPath;
         String ymdPath = ThumbnailController.calcPath(imgUploadPath);
         String fileName = null;
