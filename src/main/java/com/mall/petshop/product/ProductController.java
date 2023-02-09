@@ -72,10 +72,14 @@ public class ProductController {
 
     @PutMapping(value = "/products/{productNum}") // 이거 되나?
     public String submitModifyProduct(ProductDTO productDTO, MultipartFile file) throws Exception {
+        log.info("상품 수정해서 업로드 처리 중..");
+        // 근데 여기서 썸네일 변동사항 없으면 이거 처리할 필요가 없다.
+        // 애초에 썸네일 수정할때만 돌아가게 하면 되지..
         String imgUploadPath = uploadPath;
         String ymdPath = ThumbnailController.calcPath(imgUploadPath);
         String fileName = null;
         if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+            log.debug("썸네일 이미지 확인 후, 업로드 준비중...");
             fileName = ThumbnailController.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
             log.debug("썸네일 업로드 완료");
             productDTO.setThumbnail(File.separator + "img" + ymdPath + File.separator + fileName);

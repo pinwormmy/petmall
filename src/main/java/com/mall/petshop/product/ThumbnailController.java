@@ -31,8 +31,8 @@ public class ThumbnailController {
 		File target = new File(imgPath, newFileName);
 		FileCopyUtils.copy(fileData, target);
 		File image = new File(imgPath + File.separator + newFileName);
-		if (image.exists())
-			Thumbnails.of(image).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(image);
+		log.debug("업로드할 이미지 파일 이름 확인 : {}", image);
+		if (image.exists()) Thumbnails.of(image).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(image);
 		return newFileName;
 	}
 

@@ -18,7 +18,7 @@ img {
 <%@ include file="/WEB-INF/views/include/header.jspf" %>
 
 <br>
-<form action="/products" method="post" enctype="multipart/form-data">
+<form action="/products/${product.productNum}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="put">
     상품명 : <input type="text" name="name" size="100" value="${product.name}"><br>
     가  격 : <input type="text" name="price" value="${product.price}">원<br>

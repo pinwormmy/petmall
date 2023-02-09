@@ -91,8 +91,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<update id="modifyProduct">
-		UPDATE PRODUCT(SEARCH_TAG, NAME, PRICE, FREE_SHIPPING, ON_DISCOUNT, REG_DATE, CONTENT, THUMBNAIL)
-			VALUES(#{searchTag}, #{name}, #{price}, #{freeShipping}, #{onDiscount}, now(), #{content}, #{thumbnail})
+		UPDATE PRODUCT
+			SET SEARCH_TAG=#{searchTag}, NAME=#{name}, PRICE=#{price}, FREE_SHIPPING=#{freeShipping},
+			ON_DISCOUNT=#{onDiscount}, REG_DATE=now(), CONTENT=#{content}, THUMBNAIL=#{thumbnail}
 			WHERE PRODUCT_NUM=#{productNum}
 	</update>
 

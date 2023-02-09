@@ -103,7 +103,7 @@ img {
 <c:if test="${member.lv == 2}">
     <h3>관리자 메뉴</h3>
     <br><button class="admin-button" type="button" onclick="deleteProduct();">상품삭제</button>
-    <button class="admin-button" type="button" onclick="comingSoon();">상품수정</button>
+    <button class="admin-button" type="button" onclick="location.href='/products/form/${product.productNum}'">상품수정</button>
 </c:if>
 <section class="single-product" style="padding: 0;">
 	<div class="container">
