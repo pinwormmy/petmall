@@ -99,26 +99,7 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/checkLike")
-    @ResponseBody
-    public int checkLike(String id, int productNum) throws Exception {
-        log.info("찜 확인하기 발동====");
-        return productService.checkLike(id, productNum);
-    }
 
-    @RequestMapping(value = "/switchToLike")
-    @ResponseBody
-    public void switchToLike(@RequestBody LikeItDTO likeItDTO) throws Exception {
-        log.info("해당상품 찜하기로 함 : {}", likeItDTO);
-        productService.switchToLike(likeItDTO);
-    }
-
-    @RequestMapping(value = "/switchToUnlike")
-    @ResponseBody
-    public void switchToUnlike(String id, int productNum) throws Exception {
-        log.info("해당상품 찜 취소하기로 함 : {} {}", id, productNum);
-        productService.switchToUnlike(id, productNum);
-    }
 
     @RequestMapping(value = "/cart")
     public String cart(String id, Model model) throws Exception {

@@ -309,7 +309,7 @@ img {
             alert("리뷰 내용을 작성해주세요~");
             return false;
         }
-        fetch("/addReview", {
+        fetch("/reviews", {
             method: 'POST',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
@@ -331,7 +331,7 @@ img {
     }
 
     function pageSettingAndLoadReview(reviewPage) {
-        fetch("/reviewPageSetting", {
+        fetch("/reviews/page", {
                 method: 'POST',
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify({
@@ -368,8 +368,8 @@ img {
 
     function loadReviewFetch(pageDTO) {
         console.log("리뷰 불러오기 펫치 시작전");
-        fetch("/showReviewList", {
-            method: "POST",
+        fetch("/reviews", {
+            method: "GET",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify(pageDTO),
         })
@@ -404,7 +404,7 @@ img {
     }
 
     function deleteReview(reviewNum) {
-        fetch("/deleteReview?reviewNum=" + reviewNum, {method:"DELETE"})
+        fetch("/reviews/" + reviewNum, {method:"DELETE"})
         .then(data => {
             updateReviewCount(${product.productNum});
             showReviewList();
@@ -413,7 +413,7 @@ img {
     }
 
     function updateReviewCount(productNum) {
-        fetch("/updateReviewCount?productNum=" + productNum, {method:"PUT"})
+        fetch("/reviews/count/" + productNum, {method:"PUT"})
             .then(data => console.log("댓글 업데이트"))
             .catch(error => alert("댓글수 갱신 오류"));
     }

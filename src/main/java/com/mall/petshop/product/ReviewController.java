@@ -12,7 +12,7 @@ import java.util.List;
 public class ReviewController {
 
     @Autowired
-    ProductService productService; // 상품서비스에 둘지 따로뺄지?
+    ProductService productService; // 추후 ReviewService로 따로 정리하기
 
     @PostMapping(value="/reviews")
     public void addReview(@RequestBody ReviewDTO reviewDTO) throws Exception {
@@ -20,7 +20,7 @@ public class ReviewController {
         productService.addReview(reviewDTO);
     }
 
-    @GetMapping(value = "/reviews/page") // 페이지세팅문 이렇게 둬도 되나?
+    @PostMapping(value = "/reviews/page") // 페이지세팅문 이렇게 둬도 되나?
     public PageDTO reviewPageSetting(@RequestBody PageDTO page) throws Exception {
         return productService.pageSetting(page);
     }
@@ -30,7 +30,6 @@ public class ReviewController {
         return productService.showReviewList(page);
     }
 
-    // a태그 쓰면 겹쳐서 안된다. fetch api 써야하는듯? 좀더 찾아보기
     @DeleteMapping(value="/reviews/{reviewnum}")
     public void deleteReview(@PathVariable int reviewnum) throws Exception {
         productService.deleteReview(reviewnum);
