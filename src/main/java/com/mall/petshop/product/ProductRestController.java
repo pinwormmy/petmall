@@ -18,7 +18,8 @@ public class ProductRestController {
     @Autowired
     ProductService productService;
 
-    // 컨트롤러 굳이 안 나눠도 되나? Rest가 문제가 아니라, 기능별로 분류해야 할듯하다
+    // 컨트롤러 굳이 안 나눠도 되나? Rest가 문제가 아니라, 기능별로 분류하는 게 먼저일듯 함
+    // 추후 고려해서 정리
     @RequestMapping(value = "/checkLike")
     public int checkLike(String id, int productNum) throws Exception {
         log.info("찜 확인하기 발동====");

@@ -21,10 +21,10 @@ public class MemberController {
     MemberService memberService;
 
     // 로그인 rest는 나중에 적용(세션 개념때문에 공부 더 필요. 상품쪽 먼저하는게 쉬울듯)
-    @GetMapping(value = "/login-form")
+    @GetMapping(value = "/login/form")
     public String login(HttpServletRequest request) throws Exception{
         log.info("로그인 페이지");
-        // 로그인 이전 페이지 정보 세션에 저장
+        // 로그인 이전 페이지 정보 세션에 저장. Rest처리하면 처리 방식 바꿔야할 듯. 추후 공부해서 수정
         request.getSession().setAttribute("pageBeforeLogin", request.getHeader("Referer"));
         return "login";
     }

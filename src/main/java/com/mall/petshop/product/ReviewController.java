@@ -25,9 +25,9 @@ public class ReviewController {
         return productService.pageSetting(page);
     }
 
-    @GetMapping(value= "/reviews")
-    public List<ReviewDTO> showReviewList(@RequestBody PageDTO page) throws Exception {
-        return productService.showReviewList(page);
+    @GetMapping(value= "/reviews/{productnum}")
+    public List<ReviewDTO> showReviewList(@PathVariable int productnum) throws Exception {
+        return productService.showReviewList();
     }
 
     @DeleteMapping(value="/reviews/{reviewnum}")

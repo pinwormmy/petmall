@@ -216,12 +216,12 @@ img {
     }
 
     let likeHeart = document.getElementById("likeHeart");
-    let loginId;
+    let Id;
 
     if(${member == null}) // 함수에 로그인아이디 전달하되 널값 안들어가게끔 조정
-        loginId = "";
+        Id = "";
     else
-        loginId = "${member.id}";
+        Id = "${member.id}";
 
     let likeProduct = 0;
     function showHeartAboutLike(likeProduct) {
@@ -240,7 +240,7 @@ img {
 
     function checkLike() {
         if(${member == null}) { return false; }
-        fetch("/checkLike?id=" + loginId + "&productNum=" + ${product.productNum})
+        fetch("/checkLike?id=" + Id + "&productNum=" + ${product.productNum})
         .then(response => response.json())
         .then(data => {
             console.log("좋아요 상태 확인", data);
@@ -250,7 +250,7 @@ img {
 
     function switchToLike() {
         if(${member == null}){
-            location.href="/login";
+            location.href="/login/form";
             return false;
         }
         console.log("좋아요 상태 추가 ㄱㄱ");
@@ -258,7 +258,7 @@ img {
             method: "POST",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
-                id: loginId,
+                id: Id,
                 productNum: "${product.productNum}",
             }),
         })
@@ -270,11 +270,11 @@ img {
 
     function switchToUnlike() {
         if(${member == null}){
-            location.href="/login";
+            location.href="/";
             return false;
         }
         console.log("좋아요 상태 취소 ㄱㄱ");
-        fetch("/switchToUnlike?id=" + loginId + "&productNum=" + "${product.productNum}", {
+        fetch("/switchToUnlike?id=" + Id + "&productNum=" + "${product.productNum}", {
             method: "DELETE",
         })
         .then((data) => {
@@ -300,7 +300,7 @@ img {
 
     function addReview() {
         if(${member == null}) {
-            location.href='/login';
+            location.href='/login/form';
             return false;
         };
 
@@ -368,10 +368,11 @@ img {
 
     function loadReviewFetch(pageDTO) {
         console.log("리뷰 불러오기 펫치 시작전");
-        fetch("/reviews", {
+        fetch("/reviews/${product.productNum}", {
             method: "GET",
             headers: {"Content-Type" : "application/json"},
-            body: JSON.stringify(pageDTO),
+            //body: JSON.stringify(pageDTO), 페이지 관련 데이터를 DTO로 넘기는 것이 맞는가?
+            // GET메소드는 body로 request하지 않는다. rest api에서 페이지 처리 어떻게 하는지 다시 살펴보자
         })
         .then((response) => response.json())
         .then((data) => showReviewWithHtml(data));

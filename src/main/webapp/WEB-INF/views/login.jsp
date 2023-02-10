@@ -55,9 +55,22 @@ input#saveIdBox:checked {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 18px;
     background-color: Turquoise;
+    cursor: pointer;
+}
+.home-button {
+    width: 310px;
+    height: 50px;
+    border: 0px;
+    border-radius: 10px;
+    margin: 2px;
+    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    background-color: CadetBlue;
+    cursor: pointer;
 }
 button#kakaoLogin {
-    background-image: url("/img/kakaoLogin.png");
+    background-image: url("/images/kakaoLogin.png");
     background-size: 310px;
     background-color: transparent;
     border: none;
@@ -65,7 +78,7 @@ button#kakaoLogin {
     height: 47px;
 }
 button#naverLogin {
-    background-image: url("/img/naverLogin.png");
+    background-image: url("/images/naverLogin.png");
     background-size: 310px 47px;
     background-color: transparent;
     border: none;
@@ -73,7 +86,7 @@ button#naverLogin {
     height: 47px;
 }
 button#facebookLogin {
-    background-image: url("/img/facebookLogin.png");
+    background-image: url("/images/facebookLogin.png");
     background-size: 310px 47px;
     background-color: transparent;
     border: none;
@@ -121,7 +134,8 @@ a {
             <div>
                 <input type="password" name="pw" id="pw" placeholder="4~16 자리 영문+숫자 조합">
             </div>
-            <button id="loginButton">로그인하기</button>
+            <button id="loginButton">로그인하기</button><br>
+            <button type="button" class="home-button" onclick="location.href='/'">처음으로</button>
         </form>
         <div class="subMenu">
             <div id="right-menu" ><a href="javascript:comingSoon();">ID/PW 찾기</a> |

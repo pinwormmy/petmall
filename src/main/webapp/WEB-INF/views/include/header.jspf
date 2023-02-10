@@ -32,7 +32,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 <meta name="generator" content="Themefisher Constra HTML Template v1.0">
 
 <!-- Favicon -->
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
 
 <!-- Themefisher Icon font -->
 <link rel="stylesheet" href="/plugins/themefisher-font/style.css">
@@ -221,7 +221,7 @@ hr {
             <c:if test="${member == null}">
                 <li><a href="/loginForDemo">(시연용)일반로그인</a></li>
                 <li><a href="/loginForDemoAsAdmin">(시연용)관리자로그인</a></li>
-                <li><a href="/login-form">로그인</a></li>
+                <li><a href="/login/form">로그인</a></li>
                 <li><a href="/signUp">회원가입</a></li>
             </c:if>
             <c:if test="${member != null}">

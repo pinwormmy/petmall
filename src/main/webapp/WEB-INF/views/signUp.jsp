@@ -90,7 +90,7 @@ input {
 
             <button type="button" class="basicButton" onclick="checkSignupForm();" style='cursor:pointer;'>가입하기</button><br>
             <button type="button" class="basicButton" style="background-color: yellowgreen; cursor:pointer;"
-            onclick="location.href='/login'">이미 가입한 회원이면 로그인하기</button><br>
+            onclick="location.href='/login/form'">이미 가입한 회원이면 로그인하기</button><br>
             <button type="button" class="basicButton" style="background-color:#9FE2BF; cursor:pointer;"
             onclick="location.href='/'">처음 화면으로</button>
         </form>

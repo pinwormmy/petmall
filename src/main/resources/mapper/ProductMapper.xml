@@ -139,7 +139,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM REVIEW
 			WHERE PRODUCT_NUM=#{productNum}
 			ORDER BY REVIEW_NUM DESC
-			LIMIT #{postBeginPoint}, #{displayPostLimit}
 	</select>
 
 	<delete id="deleteReview">

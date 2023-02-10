@@ -30,7 +30,7 @@ public interface ProductService {
 
     void addReview(ReviewDTO review) throws Exception;
 
-    List<ReviewDTO> showReviewList(PageDTO page) throws Exception;
+    List<ReviewDTO> showReviewList() throws Exception;
 
     void deleteReview(int reviewNum) throws Exception;
 
