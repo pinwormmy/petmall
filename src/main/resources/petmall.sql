@@ -44,7 +44,7 @@ CREATE TABLE LIKEIT (
 );
 
 CREATE TABLE REVIEW (
-    REVIEW_NUM int PRIMARY KEY,
+    REVIEW_NUM int PRIMARY KEY auto_increment,
     PRODUCT_NUM int NOT NULL,
     ID varchar(30) NOT NULL,
     CONTENT varchar(2000),

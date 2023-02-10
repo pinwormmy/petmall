@@ -46,7 +46,7 @@
 <body>
 
 <div class="popup" id="popup" style="text-align: right;">
-    <img src="img/petpizza.jpg">
+    <img src="/images/petpizza.jpg">
     <span onclick=""><input type='checkbox' name='notSeenOneWeekCheck' id='notSeenOneWeekCheck' value='Y'>오늘은 그만보기😌</span>
     <a href='#' onclick="javascript:closeWin(1);">창닫기❌</a>
 </div>

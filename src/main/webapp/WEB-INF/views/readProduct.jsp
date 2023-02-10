@@ -366,13 +366,11 @@ img {
         });
     }
 
-    function loadReviewFetch(pageDTO) {
+    function loadReviewFetch() {
         console.log("리뷰 불러오기 펫치 시작전");
-        fetch("/reviews/${product.productNum}", {
+        fetch("/reviews/" + ${product.productNum}, {
             method: "GET",
-            headers: {"Content-Type" : "application/json"},
-            //body: JSON.stringify(pageDTO), 페이지 관련 데이터를 DTO로 넘기는 것이 맞는가?
-            // GET메소드는 body로 request하지 않는다. rest api에서 페이지 처리 어떻게 하는지 다시 살펴보자
+            headers: {"Content-Type" : "application/json"}
         })
         .then((response) => response.json())
         .then((data) => showReviewWithHtml(data));
@@ -383,7 +381,7 @@ img {
         reviewDivTag.innerHTML = "";
         let reviewListHtml = "";
         reviewDivTag.innerHTML += reviewHtmlWithString(reviewListHtml, ReviewDTOList);
-        console.log("댓글 코맨트 소스 작업  반영 확인");
+        console.log("댓글 코맨트 소스 작업  반영 확인 : " + JSON.stringify(ReviewDTOList));
     }
 
     function reviewHtmlWithString(reviewListHtml, ReviewDTOList) {

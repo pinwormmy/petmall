@@ -236,7 +236,7 @@
 				<div class="row">
 				    <c:if test="${empty productList}">
 				        <h3>검색 결과가 없습니다 😿</h3>
-				        <img src="/img/midori1.jpg" height="500px">
+				        <img src="/images/midori1.jpg" height="500px">
 				    </c:if>
 				    <c:forEach items="${productList}" var="product">
                         <div class="col-md-4">
@@ -247,7 +247,7 @@
                                     </a>
                                 </div>
                                 <div class="product-content">
-                                    <a href="/readProduct?productNum=${product.productNum}">${product.name}</a>
+                                    <a href="/products/${product.productNum}">${product.name}</a>
                                     <p class="price"><c:if test="${product.onDiscount == 1}"><span class="bage">할인중</span></c:if>
                                     ${product.price}원
                                         <a href="javascript:addCart(${product.productNum});">🛒</a>
