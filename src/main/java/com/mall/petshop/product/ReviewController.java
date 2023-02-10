@@ -29,14 +29,7 @@ public class ReviewController {
     @GetMapping(value= "/reviews/{productnum}")
     public List<ReviewDTO> showReviewList(@PathVariable int productnum) throws Exception {
         log.debug("리뷰 컨트롤러 작동 확인 : {}", productnum);
-        List<ReviewDTO> list = new ArrayList<>();
-        list = productService.showReviewList();
-//        ReviewDTO review = new ReviewDTO();
-//        review.setProductNum(9);
-//        review.setReviewNum(100);
-//        review.setId("test");
-//        list.add(review);
-        return list;
+        return productService.showReviewList(productnum);
     }
 
     @DeleteMapping(value="/reviews/{reviewnum}")

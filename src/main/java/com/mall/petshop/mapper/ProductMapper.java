@@ -33,7 +33,7 @@ public interface ProductMapper {
 
     void addReview(ReviewDTO reviewDTO) throws Exception;
 
-    List<ReviewDTO> showReviewList() throws Exception;
+    List<ReviewDTO> showReviewList(int productNum) throws Exception;
 
     void deleteReview(int reviewNum) throws Exception;
 

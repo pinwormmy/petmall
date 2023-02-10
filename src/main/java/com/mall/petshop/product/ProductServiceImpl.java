@@ -100,8 +100,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ReviewDTO> showReviewList() throws Exception {
-        return productMapper.showReviewList();
+    public List<ReviewDTO> showReviewList(int ProductNum) throws Exception {
+        return productMapper.showReviewList(ProductNum);
     }
 
     @Override
