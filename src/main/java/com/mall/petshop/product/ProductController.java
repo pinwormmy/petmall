@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -27,7 +28,7 @@ public class ProductController {
         return "index";
     }
 
-    @GetMapping(value = "/products/{productNum}") // PathVariable에선 오히려 카멜케이스 권장. JSON에서 카멜로 뜨는거지 url이 아니니까
+    @GetMapping(value = "/products/{productNum}")
     public String readProduct(Model model, @PathVariable int productNum) throws Exception {
         log.info("{}번 상품 조회", productNum);
         model.addAttribute("product", productService.readProduct(productNum));
@@ -50,7 +51,7 @@ public class ProductController {
         String imgUploadPath = uploadPath;
         String ymdPath = ThumbnailController.calcPath(imgUploadPath);
         String fileName = null;
-        if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+        if (file.getOriginalFilename() != null || file.getOriginalFilename().equals("") ) {
             fileName = ThumbnailController.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
             log.debug("썸네일 업로드 완료");
             productDTO.setThumbnail(File.separator + "img" + ymdPath + File.separator + fileName);
@@ -79,7 +80,7 @@ public class ProductController {
         String imgUploadPath = uploadPath;
         String ymdPath = ThumbnailController.calcPath(imgUploadPath);
         String fileName = null;
-        if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+        if (file.getOriginalFilename() != null && !Objects.equals(file.getOriginalFilename(), "")) {
             log.debug("썸네일 이미지 확인 후, 업로드 준비중...");
             fileName = ThumbnailController.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
             log.debug("썸네일 업로드 완료");

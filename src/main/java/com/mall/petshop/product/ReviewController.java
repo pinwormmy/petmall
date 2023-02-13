@@ -26,20 +26,20 @@ public class ReviewController {
         return productService.pageSetting(page);
     }
 
-    @GetMapping(value= "/reviews/{productnum}")
-    public List<ReviewDTO> showReviewList(@PathVariable int productnum) throws Exception {
-        log.debug("리뷰 컨트롤러 작동 확인 : {}", productnum);
-        return productService.showReviewList(productnum);
+    @GetMapping(value= "/reviews/{productNum}") // PathVariable에선 오히려 카멜케이스 권장. 어차피 JSON에서 DTO기준으로 떠서 카멜로 뜨게됨
+    public List<ReviewDTO> showReviewList(@PathVariable int productNum) throws Exception {
+        log.debug("리뷰 컨트롤러 작동 확인 : {}", productNum); // 비동기로 하면 인텔리제이 로그에 안뜸
+        return productService.showReviewList(productNum);
     }
 
-    @DeleteMapping(value="/reviews/{reviewnum}")
-    public void deleteReview(@PathVariable int reviewnum) throws Exception {
-        productService.deleteReview(reviewnum);
+    @DeleteMapping(value="/reviews/{reivewNum}")
+    public void deleteReview(@PathVariable int reivewNum) throws Exception {
+        productService.deleteReview(reivewNum);
     }
 
-    @PutMapping(value = "/reviews/count/{productnum}")
-    public void updateReviewCount(@PathVariable int productnum) throws Exception {
+    @PutMapping(value = "/reviews/count/{productNum}")
+    public void updateReviewCount(@PathVariable int productNum) throws Exception {
         log.debug("댓글수업데이트 컨트롤러 작동 확인");
-        productService.updateReviewCount(productnum);
+        productService.updateReviewCount(productNum);
     }
 }
