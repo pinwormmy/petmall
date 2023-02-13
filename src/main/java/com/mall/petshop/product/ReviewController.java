@@ -3,6 +3,7 @@ package com.mall.petshop.product;
 import com.mall.petshop.util.PageDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,13 +16,13 @@ public class ReviewController {
     @Autowired
     ProductService productService; // 추후 ReviewService로 따로 정리하기
 
-    @PostMapping(value="/reviews")
+    @PostMapping(value="/reviews", produces = MediaTypes.HAL_JSON_VALUE)
     public void addReview(@RequestBody ReviewDTO reviewDTO) throws Exception {
         log.debug("리뷰 인수 확인 : {}", reviewDTO.getContent());
         productService.addReview(reviewDTO);
     }
 
-    @PostMapping(value = "/reviews/page") // 페이지세팅문 이렇게 둬도 되나?
+    @PostMapping(value = "/reviews/page") // 페이징 처리 방식을 아예 바꿔야함
     public PageDTO reviewPageSetting(@RequestBody PageDTO page) throws Exception {
         return productService.pageSetting(page);
     }
