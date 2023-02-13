@@ -27,7 +27,7 @@ public class ProductController {
         return "index";
     }
 
-    @GetMapping(value = "/products/{productNum}")
+    @GetMapping(value = "/products/{productNum}") // PathVariable에선 오히려 카멜케이스 권장. JSON에서 카멜로 뜨는거지 url이 아니니까
     public String readProduct(Model model, @PathVariable int productNum) throws Exception {
         log.info("{}번 상품 조회", productNum);
         model.addAttribute("product", productService.readProduct(productNum));
