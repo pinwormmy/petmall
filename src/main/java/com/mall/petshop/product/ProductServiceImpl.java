@@ -95,9 +95,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ReviewDTO addReview(ReviewDTO reviewDTO) {
+    public void addReview(ReviewDTO reviewDTO) {
         productMapper.addReview(reviewDTO);
-        return reviewDTO;
     }
 
     @Override

@@ -6,10 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Slf4j
 @RestController
@@ -22,11 +27,13 @@ public class ReviewController {
     EntityToModelConverter entityToModelConverter;
 
 
-    @PostMapping(value="/reviews")
-    public EntityModel<ReviewDTO>  addReview(@RequestBody ReviewDTO reviewDTO) {
+    @PostMapping(value="/reviews") // 의도한데로 결과값이 안나오고 있다. 대충 복붙하려고 말고 필요한거 하나씩 가져오면서 공부
+    public ResponseEntity addReview(@RequestBody ReviewDTO reviewDTO) {
         log.debug("리뷰 인수 확인 : {}", reviewDTO.getContent());
         productService.addReview(reviewDTO);
-        return entityToModelConverter.toModel(productService.addReview(reviewDTO));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(linkTo(ReviewController.class).slash(reviewDTO).toUri());
+        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
 
