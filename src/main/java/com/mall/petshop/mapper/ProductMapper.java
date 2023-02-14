@@ -31,15 +31,15 @@ public interface ProductMapper {
 
     void switchToUnlike(String id, int productNum) throws Exception;
 
-    void addReview(ReviewDTO reviewDTO) throws Exception;
+    void addReview(ReviewDTO reviewDTO);
 
-    List<ReviewDTO> showReviewList(int productNum) throws Exception;
+    List<ReviewDTO> showReviewList(int productNum);
 
-    void deleteReview(int reviewNum) throws Exception;
+    void deleteReview(int reviewNum);
 
-    void updateReviewCount(int postNum) throws Exception;
+    void updateReviewCount(int postNum);
 
-    int countTotalReview(PageDTO page) throws Exception;
+    int countTotalReview(PageDTO page);
 
     void buyProduct(ProductOrderDTO order) throws Exception;
 
@@ -58,4 +58,5 @@ public interface ProductMapper {
     void resetCart(String id) throws Exception;
 
     void modifyProduct(ProductDTO productDTO) throws Exception;
+
 }

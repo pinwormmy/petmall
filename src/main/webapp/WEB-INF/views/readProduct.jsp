@@ -380,12 +380,12 @@ img {
         let reviewDivTag = document.getElementById("reviews-list");
         reviewDivTag.innerHTML = "";
         let reviewListHtml = "";
-        reviewDivTag.innerHTML += reviewHtmlWithString(reviewListHtml, ReviewDTOList);
-        console.log("댓글 코맨트 소스 작업  반영 확인 : " + JSON.stringify(ReviewDTOList));
+        reviewDivTag.innerHTML += reviewHtmlWithString(reviewListHtml, ReviewDTOList._embedded.reviewDTOList);
     }
 
     function reviewHtmlWithString(reviewListHtml, ReviewDTOList) {
         console.log("댓글 코맨트 소스 반복문 준비 확인");
+        console.log(ReviewDTOList);
         for(let review of ReviewDTOList) {
             reviewListHtml += "<div class='media'><div class='media-body'><div class='well'><div class='media-heading'><b>";
             reviewListHtml += review.id +" </b><small> " + review.regDate + "</small></div><p>" + review.content;

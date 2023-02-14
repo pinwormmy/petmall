@@ -95,22 +95,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addReview(ReviewDTO reviewDTO) throws Exception {
+    public void addReview(ReviewDTO reviewDTO) {
         productMapper.addReview(reviewDTO);
     }
 
     @Override
-    public List<ReviewDTO> showReviewList(int ProductNum) throws Exception {
+    public List<ReviewDTO> showReviewList(int ProductNum) {
         return productMapper.showReviewList(ProductNum);
     }
 
     @Override
-    public void deleteReview(int reviewNum) throws Exception {
+    public void deleteReview(int reviewNum) {
         productMapper.deleteReview(reviewNum);
     }
 
     @Override
-    public void updateReviewCount(int postNum) throws Exception {
+    public void updateReviewCount(int postNum) {
         productMapper.updateReviewCount(postNum);
     }
 

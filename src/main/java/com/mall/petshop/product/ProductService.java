@@ -28,13 +28,13 @@ public interface ProductService {
 
     void switchToUnlike(String id, int productNum) throws Exception;
 
-    void addReview(ReviewDTO review) throws Exception;
+    void addReview(ReviewDTO review);
 
-    List<ReviewDTO> showReviewList(int productNum) throws Exception;
+    List<ReviewDTO> showReviewList(int productNum);
 
-    void deleteReview(int reviewNum) throws Exception;
+    void deleteReview(int reviewNum) ;
 
-    void updateReviewCount(int postNum) throws Exception;
+    void updateReviewCount(int postNum);
 
     void buyProduct(ProductOrderDTO order) throws Exception;
 
