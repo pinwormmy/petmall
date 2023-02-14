@@ -28,7 +28,7 @@ public interface ProductService {
 
     void switchToUnlike(String id, int productNum) throws Exception;
 
-    void addReview(ReviewDTO review);
+    ReviewDTO addReview(ReviewDTO review);
 
     List<ReviewDTO> showReviewList(int productNum);
 
