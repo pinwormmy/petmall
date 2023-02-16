@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="kr">
 <head>
 <title>상품 조회</title>
 <style>
@@ -380,7 +380,7 @@ img {
         let reviewDivTag = document.getElementById("reviews-list");
         reviewDivTag.innerHTML = "";
         let reviewListHtml = "";
-        reviewDivTag.innerHTML += reviewHtmlWithString(reviewListHtml, ReviewDTOList._embedded.reviewDTOList);
+        reviewDivTag.innerHTML += reviewHtmlWithString(reviewListHtml, ReviewDTOList);
     }
 
     function reviewHtmlWithString(reviewListHtml, ReviewDTOList) {
