@@ -26,7 +26,9 @@ public class ReviewController {
     @Autowired
     EntityToModelConverter entityToModelConverter;
 
-
+// Self-Descriptive Messasge는 그냥 Api명세 링크를 같이 포함시켜버리는게 제일 확실해보임
+// 그래서 다음 단계는 Swagger배우기
+    
     @PostMapping
     public ResponseEntity addReview(@RequestBody ReviewDTO reviewDTO) {
         log.info("댓글 추가");
@@ -39,7 +41,6 @@ public class ReviewController {
         return ResponseEntity.created(uri).body(entityModel);
     }
 
-//Generic types shouldn’t be used raw (without type parameters) in variable declarations or return values. Doing so bypasses generic type checking, and defers the catch of unsafe code to runtime.
 
     @PostMapping(value = "/page") // 페이징 처리 방식을 아예 바꿔야함
     public PageDTO reviewPageSetting(@RequestBody PageDTO page) throws Exception {
