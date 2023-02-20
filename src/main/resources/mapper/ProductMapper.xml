@@ -204,8 +204,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE ID=#{id}
 	</delete>
 
-	<select id="getReviewCount" resultType="int">
-		SELECT REVIEW_COUNT
+	<select id="getReviewCount" resultType="com.mall.petshop.product.ProductDTO">
+		SELECT *
 			FROM product
 			WHERE PRODUCT_NUM=#{productNum}
 	</select>

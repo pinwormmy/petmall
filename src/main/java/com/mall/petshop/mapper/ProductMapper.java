@@ -59,5 +59,5 @@ public interface ProductMapper {
 
     void modifyProduct(ProductDTO productDTO) throws Exception;
 
-    int getReviewCount(int productNum); // 위에 매개변수만 다른 같은 기능 문장 있음. 정리 필요
+    ProductDTO getReviewCount(int productNum); // 위에 매개변수만 다른 같은 기능 문장 있음. 정리 필요
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @RestController
@@ -61,15 +62,18 @@ public class ReviewController {
         productService.deleteReview(reivewNum);
     }
 
-    @PatchMapping(value = "/count/{productNum}") // 난해한 부분 : json 어디까지 써야하나? 링크는 뭐라고 해야하나?
-    public ResponseEntity updateReviewCount(@PathVariable int productNum) {
+    @PatchMapping(value = "/count/{productNum}") // PATCH는 지원 안하는 브라우저가 많다. 이상있으면 PUT으로 변경
+    public ResponseEntity updateReviewCount(@PathVariable int productNum) {  // 난해한 부분 : json 어디까지 써야하나? 링크는 뭐라고 해야하나?
         log.info("댓글수업데이트");
         int updateResult = productService.updateReviewCount(productNum); // 사실 메인화면 상품목록에 리뷰갯수 표시 안해서 컬럼 자체가 필요없었음
         // 덕분에 코드가 좀 복잡해지지만 확장가능성 고려하면 둬도 굳이 수정할 필요도 없겠다 싶어서 둠
         if(updateResult == 0)
-            return new ResponseEntity("댓글수 업데이트 DB 오류", HttpStatus.INTERNAL_SERVER_ERROR);
-        int reviewCount = productService.getReviewCount(productNum);
-
-        return new ResponseEntity("이걸론 부족하지만 일단...성공~ : " + reviewCount, HttpStatus.OK);
+            return new ResponseEntity("댓글수 업데이트 DB 오류", HttpStatus.BAD_REQUEST); // 500에러 쓰면 안됨. 코드 맞는지 확인 필요
+        ProductDTO productDTO = productService.getReviewCount(productNum); // 여기서 다른 쿼리문까지 쓰는게 맞나? 단일책임원칙 위반 아닌가?
+        EntityModel<ProductDTO> entityModel =
+                EntityModel.of(productDTO, // FM으로 구현한다치고, 한게시물에 대한 DTO(JSON) 다 포함시킴
+                        linkTo(methodOn(ReviewController.class).updateReviewCount(productNum)).withSelfRel(),
+                        linkTo(methodOn(ReviewController.class).showReviewList(productNum)).withRel("reviewList"));
+        return ResponseEntity.ok().body(entityModel);
     }
 }

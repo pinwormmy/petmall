@@ -162,7 +162,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int getReviewCount(int productNum) {
+    public ProductDTO getReviewCount(int productNum) {
         return productMapper.getReviewCount(productNum);
     }
 }

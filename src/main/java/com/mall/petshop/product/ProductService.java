@@ -54,5 +54,5 @@ public interface ProductService {
 
     void modifyProduct(ProductDTO productDTO) throws Exception;
 
-    int getReviewCount(int productNum);
+    ProductDTO getReviewCount(int productNum);
 }
