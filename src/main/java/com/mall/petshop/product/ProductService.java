@@ -34,7 +34,7 @@ public interface ProductService {
 
     void deleteReview(int reviewNum) ;
 
-    void updateReviewCount(int postNum);
+    int updateReviewCount(int postNum);
 
     void buyProduct(ProductOrderDTO order) throws Exception;
 
@@ -53,4 +53,6 @@ public interface ProductService {
     void resetCart(String id) throws Exception;
 
     void modifyProduct(ProductDTO productDTO) throws Exception;
+
+    int getReviewCount(int productNum);
 }

@@ -110,8 +110,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateReviewCount(int postNum) {
+    public int updateReviewCount(int postNum) {
         productMapper.updateReviewCount(postNum);
+        return postNum;
     }
 
     @Override
@@ -158,5 +159,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void modifyProduct(ProductDTO productDTO) throws Exception {
         productMapper.modifyProduct(productDTO);
+    }
+
+    @Override
+    public int getReviewCount(int productNum) {
+        return productMapper.getReviewCount(productNum);
     }
 }

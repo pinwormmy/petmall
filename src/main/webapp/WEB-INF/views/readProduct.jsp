@@ -179,7 +179,9 @@ img {
 						상세정보</a></li>
 						<li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false"
 						style="background-color: Turquoise;">
-						리뷰(${product.reviewCount})</a></li>
+						리뷰(
+						    <span class="display-review-count">${product.reviewCount}</span>
+						)</a></li>
 					</ul>
 					<div class="tab-content patternbg">
 						<div id="details" class="tab-pane fade active in" style="text-align: center;">
@@ -412,8 +414,12 @@ img {
     }
 
     function updateReviewCount(productNum) {
-        fetch("/reviews/count/" + productNum, {method:"PUT"})
-            .then(data => console.log("댓글 업데이트"))
+        fetch("/reviews/count/" + productNum, {method:"PATCH"})
+            .then(data => {
+                console.log("댓글수 업데이트", data);
+                let displayReviewCount = document.getElementById("display-review-count").className;
+                displayReviewCount.innerHTML = "${product.reviewCount}";
+            })
             .catch(error => alert("댓글수 갱신 오류"));
     }
 

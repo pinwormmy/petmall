@@ -126,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="countTotalReview" resultType="int">
 		SELECT count(*) from REVIEW
-		WHERE PRODUCT_NUM=#{productNum}
+			WHERE PRODUCT_NUM=#{productNum}
 	</select>
 
 	<insert id="addReview">
@@ -203,5 +203,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM CART
 			WHERE ID=#{id}
 	</delete>
+
+	<select id="getReviewCount" resultType="int">
+		SELECT REVIEW_COUNT
+			FROM product
+			WHERE PRODUCT_NUM=#{productNum}
+	</select>
 
 </mapper>

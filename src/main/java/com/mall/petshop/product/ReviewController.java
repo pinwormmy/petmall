@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,20 +35,18 @@ public class ReviewController {
         log.info("댓글 추가");
         productService.addReview(reviewDTO);
         URI uri = linkTo(ReviewController.class).slash(showReviewList(reviewDTO.getProductNum())).toUri();
-        EntityModel<ReviewDTO> entityModel = EntityModel.of(
-                reviewDTO,
-                linkTo(ReviewController.class).withRel("reviewList")
-        );
+        EntityModel<ReviewDTO> entityModel =
+                EntityModel.of(reviewDTO, linkTo(ReviewController.class).withRel("reviewList"));
         return ResponseEntity.created(uri).body(entityModel);
     }
 
 
+    // rest api에서 페이징 처리 어떻게 하는지 알아보기. 아마 기존 내가 구현한 api는 버려야할듯??
     @PostMapping(value = "/page") // 페이징 처리 방식을 아예 바꿔야함
     public PageDTO reviewPageSetting(@RequestBody PageDTO page) throws Exception {
         return productService.pageSetting(page);
     }
 
-    // CollectionModel의 경우, 낱개로 가져오는 api를 뭉쳐서 목록 api 구성하는 방식인데, 리뷰는 낱개로 불러오지않는다. 나중에 다시 테스트
     @GetMapping(value= "/{productNum}") // PathVariable에선 오히려 카멜케이스 권장. 어차피 JSON에서 DTO기준으로 떠서 카멜로 뜨게됨
     public List<EntityModel<ReviewDTO>> showReviewList(@PathVariable int productNum) {
         log.debug("리뷰 컨트롤러 작동 확인 : {}", productNum); // 비동기로 하면 인텔리제이 로그에 안뜸
@@ -62,9 +61,15 @@ public class ReviewController {
         productService.deleteReview(reivewNum);
     }
 
-    @PutMapping(value = "/count/{productNum}")
-    public void updateReviewCount(@PathVariable int productNum) {
-        log.debug("댓글수업데이트 컨트롤러 작동 확인");
-        productService.updateReviewCount(productNum);
+    @PatchMapping(value = "/count/{productNum}") // 난해한 부분 : json 어디까지 써야하나? 링크는 뭐라고 해야하나?
+    public ResponseEntity updateReviewCount(@PathVariable int productNum) {
+        log.info("댓글수업데이트");
+        int updateResult = productService.updateReviewCount(productNum); // 사실 메인화면 상품목록에 리뷰갯수 표시 안해서 컬럼 자체가 필요없었음
+        // 덕분에 코드가 좀 복잡해지지만 확장가능성 고려하면 둬도 굳이 수정할 필요도 없겠다 싶어서 둠
+        if(updateResult == 0)
+            return new ResponseEntity("댓글수 업데이트 DB 오류", HttpStatus.INTERNAL_SERVER_ERROR);
+        int reviewCount = productService.getReviewCount(productNum);
+
+        return new ResponseEntity("이걸론 부족하지만 일단...성공~ : " + reviewCount, HttpStatus.OK);
     }
 }
