@@ -180,7 +180,7 @@ img {
 						<li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false"
 						style="background-color: Turquoise;">
 						리뷰(
-						    <span class="display-review-count">${product.reviewCount}</span>
+						    <span id="display-review-count">${product.reviewCount}</span>
 						)</a></li>
 					</ul>
 					<div class="tab-content patternbg">
@@ -219,6 +219,7 @@ img {
 
     let likeHeart = document.getElementById("likeHeart");
     let Id;
+    let displayReviewCount = document.getElementById("display-review-count");
 
     if(${member == null}) // 함수에 로그인아이디 전달하되 널값 안들어가게끔 조정
         Id = "";
@@ -415,10 +416,10 @@ img {
 
     function updateReviewCount(productNum) {
         fetch("/reviews/count/" + productNum, {method:"PATCH"})
+            .then((response) => response.json())
             .then(data => {
-                console.log("댓글수 업데이트", data);
-                let displayReviewCount = document.getElementById("display-review-count").className;
-                displayReviewCount.innerHTML = "${product.reviewCount}";
+                console.log("댓글수 업데이트", data.reviewCount);
+                displayReviewCount.innerHTML = data.reviewCount;
             })
             .catch(error => alert("댓글수 갱신 오류"));
     }
