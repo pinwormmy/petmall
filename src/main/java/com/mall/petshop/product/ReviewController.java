@@ -66,9 +66,8 @@ public class ReviewController {
     public ResponseEntity updateReviewCount(@PathVariable int productNum) {  // 난해한 부분 : json 어디까지 써야하나? 링크는 뭐라고 해야하나?
         log.info("댓글수업데이트");
         int updateResult = productService.updateReviewCount(productNum); // 사실 메인화면 상품목록에 리뷰갯수 표시 안해서 컬럼 자체가 필요없었음
-        // 덕분에 코드가 좀 복잡해지지만 확장가능성 고려하면 둬도 굳이 수정할 필요도 없겠다 싶어서 둠
         if(updateResult == 0)
-            return new ResponseEntity("댓글수 업데이트 DB 오류", HttpStatus.BAD_GATEWAY); // 502에러. DB 쪽에서 헛소리한다는 의미로
+            return new ResponseEntity("댓글수 업데이트 DB 오류", HttpStatus.INTERNAL_SERVER_ERROR); // db관련 코드는 없으므로, 포괄적 의미의 500오류코드
         ProductDTO productDTO = productService.getReviewCount(productNum); // 여기서 다른 쿼리문까지 쓰는게 맞나? 단일책임원칙 위반 아닌가?
         EntityModel<ProductDTO> entityModel =
                 EntityModel.of(productDTO, // FM으로 구현한다치고, 한게시물에 대한 DTO(JSON) 다 포함시킴
