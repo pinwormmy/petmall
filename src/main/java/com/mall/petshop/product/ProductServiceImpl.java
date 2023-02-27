@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int checkLike(String id, int productNum) throws Exception {
+    public LikeItDTO checkLike(String id, int productNum) throws Exception {
         return productMapper.checkLike(id, productNum);
     }
 

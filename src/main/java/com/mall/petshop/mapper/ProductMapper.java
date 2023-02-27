@@ -21,7 +21,7 @@ public interface ProductMapper {
 
     void addLikeProduct(LikeItDTO likeItDTO) throws Exception;
 
-    int checkLike(@Param("id") String id, @Param("productNum") int productNum) throws Exception;
+    LikeItDTO checkLike(@Param("id") String id, @Param("productNum") int productNum) throws Exception;
 
     List<LikeItDTO> loadLikeList(String id) throws Exception;
 

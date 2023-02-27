@@ -4,12 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @RestController
@@ -18,14 +16,11 @@ public class LikeController {
     ProductService productService;
 
     @GetMapping(value = "/like/{id}/{productNum}")
-    public ResponseEntity checkLike(LikeItDTO likeItDTO) throws Exception {
+    public ResponseEntity checkLike(@PathVariable String id, @PathVariable int productNum) throws Exception {
         log.info("해당 상품에 찜 눌렀는지 확인");
-        int result = productService.checkLike(likeItDTO.getId(), likeItDTO.getProductNum());
-        if(result == 0) {
-            ResponseEntity.ok().body("ddd");
-        }
+        LikeItDTO likeItDTO = productService.checkLike(id, productNum);
         EntityModel<LikeItDTO> entityModel =
-                EntityModel.of(likeItDTO, linkTo(LikeController.class).withSelfRel());
+                EntityModel.of(likeItDTO, linkTo(methodOn(LikeController.class).checkLike(id, productNum)).withSelfRel());
         return ResponseEntity.ok().body(entityModel);
     }
 
@@ -40,8 +35,6 @@ public class LikeController {
         log.info("해당상품 찜 취소하기로 함 : {} {}", id, productNum);
         productService.switchToUnlike(id, productNum);
     }
-
-
 
     @RequestMapping(value = "/deleteLike")
     public String deleteLike(int productNum, String id) throws Exception {

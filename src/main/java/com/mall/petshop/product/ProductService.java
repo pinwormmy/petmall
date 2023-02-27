@@ -16,7 +16,7 @@ public interface ProductService {
 
     void deleteProduct(int productNum) throws Exception;
 
-    int checkLike(String id, int productNum) throws Exception;
+    LikeItDTO checkLike(String id, int productNum) throws Exception;
 
     List<LikeItDTO> loadLikeList(String id) throws Exception;
 
