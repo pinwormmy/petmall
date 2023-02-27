@@ -2,7 +2,6 @@ package com.mall.petshop.product;
 
 import com.mall.petshop.util.EntityToModelConverter;
 import com.mall.petshop.util.PageDTO;
-import com.sun.jndi.toolkit.url.Uri;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -40,7 +39,6 @@ public class ReviewController {
                 EntityModel.of(reviewDTO, linkTo(ReviewController.class).withRel("reviewList"));
         return ResponseEntity.created(uri).body(entityModel);
     }
-
 
     // rest api에서 페이징 처리 어떻게 하는지 알아보기. 아마 기존 내가 구현한 api는 버려야할듯??
     @PostMapping(value = "/page") // 페이징 처리 방식을 아예 바꿔야함

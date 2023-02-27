@@ -18,5 +18,5 @@ public class ProductDTO {
     private Date regDate;
     private int reviewCount;
 
-    private LikeItDTO likeItDTO;
+    //private LikeItDTO likeItDTO;
 }
