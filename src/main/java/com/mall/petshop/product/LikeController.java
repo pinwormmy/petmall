@@ -3,6 +3,7 @@ package com.mall.petshop.product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +12,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Slf4j
 @RestController
+@RequestMapping(produces = MediaTypes.HAL_JSON_VALUE)
 public class LikeController {
     @Autowired
     ProductService productService;
 
-    @GetMapping(value = "/like/{id}/{productNum}")
+    // 상태코드에 따르면 json 제외하고, 상태코드랑 링크만 반납하면 되는데, 그러면 entity모델말고 다른걸 써야하나?
+    @GetMapping(value = "/like/{id}/{productNum}") // 관련 자료 좀더 찾아보기.
     public ResponseEntity checkLike(@PathVariable String id, @PathVariable int productNum) throws Exception {
         log.info("해당 상품에 찜 눌렀는지 확인");
         LikeItDTO likeItDTO = productService.checkLike(id, productNum);
