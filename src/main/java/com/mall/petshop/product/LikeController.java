@@ -40,9 +40,10 @@ public class LikeController {
         productService.addToLikedProduct(id, productNum);
         LikeItDTO likeItDTO = productService.checkLike(id, productNum);
         URI uri = Link.of("/products" + productNum).toUri(); // 대상이 뷰랑 붙어있어서 하드코딩 형태로 짰는데, 추후에 linkTo 형식으로 변경하기
-        EntityModel<LikeItDTO> entityModel =
+        // 여기도 JSON 아예 제외해서 표기. URI와 http상태가 이미 내용을 포함한다고 판단.
+        EntityModel entityModel =
                 // 이건 그냥 methodOn 안쓰고 짜봄;
-                EntityModel.of(likeItDTO, linkTo(LikeController.class)
+                EntityModel.of(linkTo(LikeController.class)
                         .slash("products").slash(productNum)
                         .slash("likers").slash(id).withSelfRel());
         return ResponseEntity.created(uri).body(entityModel);
