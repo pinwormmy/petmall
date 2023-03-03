@@ -125,7 +125,7 @@ img {
 			<div class="col-md-6">
 				<div class="single-product-details">
 				    <p class="like-share">
-                        <span id="likeHeart"><a href='javascript:switchToLike();'>🤍</a></span>
+                        <span id="likeHeart"><a href='javascript:addToLikedProduct();'>🤍</a></span>
                         <a href="javascript:urlClip();">🔗</a>
 				    </p>
 					<h2>${product.name}</h2>
@@ -232,7 +232,7 @@ img {
         if(likeProduct == 1)
             likeHeart.innerHTML = "<a href='javascript:switchToUnlike();'>❤️</a>";
         else
-            likeHeart.innerHTML = "<a href='javascript:switchToLike();'>🤍</a>";
+            likeHeart.innerHTML = "<a href='javascript:addToLikedProduct();'>🤍</a>";
     }
 
     checkLike(); // 로그인했는지 보고 갱신
@@ -243,21 +243,22 @@ img {
 
     function checkLike() {
         if(${member == null}) { return false; }
-        fetch("/checkLike?id=" + Id + "&productNum=" + ${product.productNum})
+        fetch("/products/" + ${product.productNum} + "/likers/" + Id)
         .then(response => response.json())
         .then(data => {
+            // 여기서 결과값 어떻게 나오는지 보고 로직 수정하기
             console.log("좋아요 상태 확인", data);
             showHeartAboutLike(data);
         });
     }
 
-    function switchToLike() {
+    function addToLikedProduct() {
         if(${member == null}){
             location.href="/login/form";
             return false;
         }
-        console.log("좋아요 상태 추가 ㄱㄱ");
-        fetch("/switchToLike", {
+        console.log("해당 상품 찜하기 수행 전");
+        fetch("/products/" + ${product.productNum} + "/likers/" + Id, {
             method: "POST",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({
@@ -266,8 +267,11 @@ img {
             }),
         })
         .then((data) => {
-            console.log("좋아요로 전환함",);
+            console.log("해당상품 찜하기 완료",);
             checkLike();
+        })
+        .catch(() => {
+            console.log("상품 찜하려 했는데 오류 발생");
         });
     }
 

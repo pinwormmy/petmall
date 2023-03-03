@@ -19,7 +19,7 @@ public interface ProductMapper {
 
     void deleteProduct(int productNum) throws Exception;
 
-    void addLikeProduct(LikeItDTO likeItDTO) throws Exception;
+    void addToLikedProduct(@Param("id") String id, @Param("productNum") int productNum) throws Exception;
 
     LikeItDTO checkLike(@Param("id") String id, @Param("productNum") int productNum) throws Exception;
 

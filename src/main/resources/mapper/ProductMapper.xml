@@ -113,7 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE ID=#{id}
 	</select>
 
-	<insert id="switchToLike">
+	<insert id="addToLikedProduct">
 		INSERT INTO LIKEIT
 			VALUES(#{id}, #{productNum})
 	</insert>

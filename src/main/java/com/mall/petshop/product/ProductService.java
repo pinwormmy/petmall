@@ -24,7 +24,7 @@ public interface ProductService {
 
     int countTotalPost(PageDTO page) throws Exception;
 
-    void switchToLike(LikeItDTO likeItDTO) throws Exception;
+    void addToLikedProduct(String id, int productNum) throws Exception;
 
     void switchToUnlike(String id, int productNum) throws Exception;
 

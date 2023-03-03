@@ -78,8 +78,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void switchToLike(LikeItDTO likeItDTO) throws Exception {
-        productMapper.switchToLike(likeItDTO);
+    public void addToLikedProduct(String id, int productNum) throws Exception {
+        productMapper.addToLikedProduct(id, productNum);
     }
 
     @Override

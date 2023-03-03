@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +18,23 @@ public class LikeController {
     @Autowired
     ProductService productService;
 
-    // 상태코드에 따르면 json 제외하고, 상태코드랑 링크만 반납하면 되는데, 그러면 entity모델말고 다른걸 써야하나?
-    @GetMapping(value = "/like/{id}/{productNum}") // 관련 자료 좀더 찾아보기.
+    @GetMapping(value = "/products/{productNum}/likers/{id}")
     public ResponseEntity checkLike(@PathVariable String id, @PathVariable int productNum) throws Exception {
         log.info("해당 상품에 찜 눌렀는지 확인");
         LikeItDTO likeItDTO = productService.checkLike(id, productNum);
-        EntityModel<LikeItDTO> entityModel =
-                EntityModel.of(likeItDTO, linkTo(methodOn(LikeController.class).checkLike(id, productNum)).withSelfRel());
-        return ResponseEntity.ok().body(entityModel);
+        EntityModel entityModel =
+                EntityModel.of(linkTo(methodOn(LikeController.class).checkLike(id, productNum)).withSelfRel());
+        if(likeItDTO != null) // 204써도 되냐 말이 많지만, 있다없다만 파악하면 되기에, 굳이 JSON 표기 안해도 되는 것으로 봄.
+            new ResponseEntity(entityModel, HttpStatus.NO_CONTENT);
+        else
+            ResponseEntity.notFound();
+        return new ResponseEntity(entityModel, HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/switchToLike")
-    public void switchToLike(@RequestBody LikeItDTO likeItDTO) throws Exception {
-        log.info("해당상품 찜하기로 함 : {}", likeItDTO);
-        productService.switchToLike(likeItDTO);
+    @PostMapping(value = "/products/{productNum}/likers/{id}")
+    public void addToLikedProduct(@PathVariable String id, @PathVariable int productNum) throws Exception {
+        log.info("해당상품 찜하기로 함. 상품번호 : {}", productNum);
+        productService.addToLikedProduct(id, productNum);
     }
 
     @RequestMapping(value = "/switchToUnlike")
