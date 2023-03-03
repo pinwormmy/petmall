@@ -3,10 +3,13 @@ package com.mall.petshop.product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -32,9 +35,17 @@ public class LikeController {
     }
 
     @PostMapping(value = "/products/{productNum}/likers/{id}")
-    public void addToLikedProduct(@PathVariable String id, @PathVariable int productNum) throws Exception {
+    public ResponseEntity addToLikedProduct(@PathVariable String id, @PathVariable int productNum) throws Exception {
         log.info("해당상품 찜하기로 함. 상품번호 : {}", productNum);
         productService.addToLikedProduct(id, productNum);
+        LikeItDTO likeItDTO = productService.checkLike(id, productNum);
+        URI uri = Link.of("/products" + productNum).toUri(); // 대상이 뷰랑 붙어있어서 하드코딩 형태로 짰는데, 추후에 linkTo 형식으로 변경하기
+        EntityModel<LikeItDTO> entityModel =
+                // 이건 그냥 methodOn 안쓰고 짜봄;
+                EntityModel.of(likeItDTO, linkTo(LikeController.class)
+                        .slash("products").slash(productNum)
+                        .slash("likers").slash(id).withSelfRel());
+        return ResponseEntity.created(uri).body(entityModel);
     }
 
     @RequestMapping(value = "/switchToUnlike")
