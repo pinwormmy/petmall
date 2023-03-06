@@ -25,13 +25,17 @@ public class LikeController {
     public ResponseEntity checkLike(@PathVariable String id, @PathVariable int productNum) throws Exception {
         log.info("해당 상품에 찜 눌렀는지 확인");
         LikeItDTO likeItDTO = productService.checkLike(id, productNum);
+        log.debug("찜 눌렀는지 db 조회내역 확인 : {}", likeItDTO);
         EntityModel entityModel =
+                // self주소만 달랑 있다고 해서 hateoas가 아닐 것이다
                 EntityModel.of(linkTo(methodOn(LikeController.class).checkLike(id, productNum)).withSelfRel());
-        if(likeItDTO != null) // 204써도 되냐 말이 많지만, 있다없다만 파악하면 되기에, 굳이 JSON 표기 안해도 되는 것으로 봄.
-            new ResponseEntity(entityModel, HttpStatus.NO_CONTENT);
-        else
-            ResponseEntity.notFound();
-        return new ResponseEntity(entityModel, HttpStatus.NOT_FOUND);
+        if(likeItDTO != null) { // 204써도 되냐? 결국 상태코드 빼곤 아무것도 안 받는데? 그러면 Hateoas도 위반아닌가? 일단 패스
+            log.debug("찜내역 확인해서 204 반환 확인");
+            return new ResponseEntity(entityModel, HttpStatus.NO_CONTENT);
+        }else {
+            log.debug("찜 내역 없는 것 확인해서 404 반환 확인");
+            return new ResponseEntity(entityModel, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = "/products/{productNum}/likers/{id}")

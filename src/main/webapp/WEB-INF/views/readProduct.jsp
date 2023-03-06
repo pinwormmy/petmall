@@ -244,11 +244,18 @@ img {
     function checkLike() {
         if(${member == null}) { return false; }
         fetch("/products/" + ${product.productNum} + "/likers/" + Id)
-        .then(response => response.json())
-        .then(data => {
-            // 여기서 결과값 어떻게 나오는지 보고 로직 수정하기
-            console.log("좋아요 상태 확인", data);
-            showHeartAboutLike(data);
+        .then(response => {
+            if(response.status == '204') {
+                console.log("상태코드204 : 해당 아이디 상품 찜했던 것 확인");
+                likeProduct = 1;
+                showHeartAboutLike();
+            }else if(response.status == '404') {
+                console.log("상태코드404 : 해당 상품 찜한 이력 없음");
+                likeProduct = 0;
+                showHeartAboutLike();
+            }else {
+                console.log("무슨 경우지? Http상태코드 확인필요");
+            }
         });
     }
 
