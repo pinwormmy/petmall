@@ -227,8 +227,8 @@ img {
         Id = "${member.id}";
 
     let likeProduct = 0;
-    function showHeartAboutLike(likeProduct) {
-        console.log("하트 띄우기 - 인수 확인 : ", likeProduct);
+    function showHeartAboutLike() {
+        console.log("하트 띄우기 - 상태값 확인 : ", likeProduct);
         if(likeProduct == 1)
             likeHeart.innerHTML = "<a href='javascript:switchToUnlike();'>❤️</a>";
         else
@@ -246,8 +246,8 @@ img {
         fetch("/products/" + ${product.productNum} + "/likers/" + Id)
         .then(response => {
             if(response.status == '204') {
-                console.log("상태코드204 : 해당 아이디 상품 찜했던 것 확인");
                 likeProduct = 1;
+                console.log("상태코드204 : 해당 아이디 상품 찜했던 것 확인");
                 showHeartAboutLike();
             }else if(response.status == '404') {
                 console.log("상태코드404 : 해당 상품 찜한 이력 없음");
